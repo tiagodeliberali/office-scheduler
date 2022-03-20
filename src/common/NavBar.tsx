@@ -40,16 +40,23 @@ export default function NavBar() {
             key: 'home',
             text: 'Home',
             cacheKey: 'myCacheKey', // changing this key will invalidate this item's cache
-            iconProps: { iconName: 'Add' },
+            iconProps: { iconName: 'home' },
             commandBarButtonAs: CustomButton,
             href: '/'
         },
         {
             key: 'calendar',
             text: 'Calendar',
-            iconProps: { iconName: 'Upload' },
+            iconProps: { iconName: 'calendar' },
             commandBarButtonAs: CustomButton,
             href: '/calendar'
+        },
+        {
+            key: 'newevent',
+            text: 'New event',
+            iconProps: { iconName: 'Add' },
+            commandBarButtonAs: CustomButton,
+            href: '/newevent'
         },
     ];
 

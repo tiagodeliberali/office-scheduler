@@ -8,6 +8,7 @@ import { AuthenticatedTemplate, UnauthenticatedTemplate } from '@azure/msal-reac
 import { add, format, getDay, parseISO } from 'date-fns';
 import { endOfWeek, startOfWeek } from 'date-fns/esm';
 import { PrimaryButton } from '@fluentui/react/lib/Button';
+import CalendarRow from './CalendarRow';
 
 export default function Calendar() {
     const app = useAppContext();
@@ -33,7 +34,8 @@ export default function Calendar() {
     return (
         <>
             <AuthenticatedTemplate>
-                <pre><code>{JSON.stringify(events, null, 2)}</code></pre>
+                {events?.map(event => <CalendarRow event={event} />)}
+                {/* <pre><code>{JSON.stringify(events, null, 2)}</code></pre> */}
             </AuthenticatedTemplate>
             <UnauthenticatedTemplate>
                 <PrimaryButton color="primary" onClick={app.signIn!} text="Click here to sign in" />
