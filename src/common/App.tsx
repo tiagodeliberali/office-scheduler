@@ -5,7 +5,7 @@ import { IPublicClientApplication } from '@azure/msal-browser';
 import ProvideAppContext from './AppContext';
 import ErrorMessage from './ErrorMessage';
 import NavBar from './NavBar';
-import Welcome from './Welcome';
+import Welcome from '../Welcome';
 
 import { Stack } from "@fluentui/react";
 

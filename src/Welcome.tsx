@@ -1,6 +1,6 @@
 import { AuthenticatedTemplate, UnauthenticatedTemplate } from '@azure/msal-react';
-import { useAppContext } from './AppContext';
-import { DefaultButton, PrimaryButton } from '@fluentui/react/lib/Button';
+import { useAppContext } from './common/AppContext';
+import { PrimaryButton } from '@fluentui/react/lib/Button';
 
 export default function Welcome() {
     const app = useAppContext();
@@ -8,9 +8,9 @@ export default function Welcome() {
     return (
         <div className="p-5 mb-4 bg-light rounded-3">
             <div>
-                <h1>React Graph Tutorial</h1>
+                <h1>Office scheduler</h1>
                 <p className="lead">
-                    This sample app shows how to use the Microsoft Graph API to access a user's data from React
+                    An easy way to keep your schedule working for you!
                 </p>
                 <AuthenticatedTemplate>
                     <div>
