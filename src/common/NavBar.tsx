@@ -1,13 +1,26 @@
-import { NavLink as RouterNavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { AuthenticatedTemplate, UnauthenticatedTemplate } from '@azure/msal-react';
 import { AppUser, useAppContext } from './AppContext';
 
 import { CommandBar, ICommandBarItemProps } from '@fluentui/react/lib/CommandBar';
+import { CommandBarButton, IComponentAsProps } from '@fluentui/react';
+
 import { IButtonProps } from '@fluentui/react/lib/Button';
 import { setVirtualParent } from '@fluentui/dom-utilities';
 
+import { initializeIcons } from '@fluentui/react/lib/Icons';
+
+initializeIcons(/* optional base url */);
+
 interface UserAvatarProps {
     user: AppUser
+};
+
+const CustomButton: React.FunctionComponent<IComponentAsProps<ICommandBarItemProps>> = props => {
+    const WrappedButton = () => (
+        <CommandBarButton {...(props as any)} text={'custom ' + (props.text || props.name)} />
+    );
+    return <Link to={props.href!} ><WrappedButton /></Link>;
 };
 
 function UserAvatar(props: UserAvatarProps) {
@@ -28,11 +41,15 @@ export default function NavBar() {
             text: 'Home',
             cacheKey: 'myCacheKey', // changing this key will invalidate this item's cache
             iconProps: { iconName: 'Add' },
+            commandBarButtonAs: CustomButton,
+            href: '/'
         },
         {
             key: 'calendar',
             text: 'Calendar',
             iconProps: { iconName: 'Upload' },
+            commandBarButtonAs: CustomButton,
+            href: '/calendar'
         },
     ];
 

@@ -64,6 +64,8 @@ export default function ProvideAppContext({ children }: ProvideAppContextProps) 
 }
 
 function useProvideAppContext() {
+  const msal = useMsal();
+
   const [user, setUser] = useState<AppUser | undefined>(undefined);
   const [error, setError] = useState<AppError | undefined>(undefined);
 
@@ -90,9 +92,7 @@ function useProvideAppContext() {
       }
     };
     checkUser();
-  });
-
-  const msal = useMsal();
+  }, [user]);
 
   const displayError = (message: string, debug?: string) => {
     setError({ message, debug });
