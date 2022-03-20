@@ -9,19 +9,25 @@ import Welcome from '../Welcome';
 
 import { Stack } from "@fluentui/react";
 
+type AppProps = {
+  pca: IPublicClientApplication
+};
 
-export default function App() {
+
+export default function App({ pca }: AppProps) {
   return (
-    <ProvideAppContext>
-      <BrowserRouter>
-        <NavBar />
-        <Stack horizontalAlign="center" gap={25}>
-          <ErrorMessage />
-          <Routes>
-            <Route path="/" element={<Welcome />} />
-          </Routes>
-        </Stack>
-      </BrowserRouter>
-    </ProvideAppContext>
+    <MsalProvider instance={pca}>
+      <ProvideAppContext>
+        <BrowserRouter>
+          <NavBar />
+          <Stack horizontalAlign="center" gap={25}>
+            <ErrorMessage />
+            <Routes>
+              <Route path="/" element={<Welcome />} />
+            </Routes>
+          </Stack>
+        </BrowserRouter>
+      </ProvideAppContext>
+    </MsalProvider>
   );
 }

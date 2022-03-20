@@ -10,6 +10,9 @@ import { AuthCodeMSALBrowserAuthenticationProvider } from '@microsoft/microsoft-
 import { InteractionType, PublicClientApplication } from '@azure/msal-browser';
 import { useMsal } from '@azure/msal-react';
 
+import config from './Config';
+import { getUser } from './GraphService';
+
 export interface AppUser {
   displayName?: string,
   email?: string,
@@ -64,6 +67,33 @@ function useProvideAppContext() {
   const [user, setUser] = useState<AppUser | undefined>(undefined);
   const [error, setError] = useState<AppError | undefined>(undefined);
 
+  useEffect(() => {
+    const checkUser = async () => {
+      if (!user) {
+        try {
+          // Check if user is already signed in
+          const account = msal.instance.getActiveAccount();
+          if (account) {
+            // Get the user from Microsoft Graph
+            const user = await getUser(authProvider);
+
+            setUser({
+              displayName: user.displayName || '',
+              email: user.mail || user.userPrincipalName || '',
+              timeFormat: user.mailboxSettings?.timeFormat || 'h:mm a',
+              timeZone: user.mailboxSettings?.timeZone || 'UTC'
+            });
+          }
+        } catch (err: any) {
+          displayError(err.message);
+        }
+      }
+    };
+    checkUser();
+  });
+
+  const msal = useMsal();
+
   const displayError = (message: string, debug?: string) => {
     setError({ message, debug });
   }
@@ -72,14 +102,35 @@ function useProvideAppContext() {
     setError(undefined);
   }
 
-  const authProvider = undefined;
+  const authProvider = new AuthCodeMSALBrowserAuthenticationProvider(
+    msal.instance as PublicClientApplication,
+    {
+      account: msal.instance.getActiveAccount()!,
+      scopes: config.scopes,
+      interactionType: InteractionType.Popup
+    }
+  );
 
   const signIn = async () => {
-    // TODO
+    await msal.instance.loginPopup({
+      scopes: config.scopes,
+      prompt: 'select_account'
+    });
+
+    // Get the user from Microsoft Graph
+    const user = await getUser(authProvider);
+
+    setUser({
+      displayName: user.displayName || '',
+      email: user.mail || user.userPrincipalName || '',
+      timeFormat: user.mailboxSettings?.timeFormat || '',
+      timeZone: user.mailboxSettings?.timeZone || 'UTC'
+    });
   };
 
   const signOut = async () => {
-    // TODO
+    await msal.instance.logoutPopup();
+    setUser(undefined);
   };
 
   return {
