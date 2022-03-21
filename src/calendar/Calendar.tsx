@@ -1,21 +1,22 @@
 import { useEffect, useState } from 'react';
-import { Stack, IStackStyles, IStackTokens, IStackItemStyles } from '@fluentui/react/lib/Stack';
 import { findIana } from "windows-iana";
 import { Event } from 'microsoft-graph';
+import { AuthenticatedTemplate, UnauthenticatedTemplate } from '@azure/msal-react';
+
+import { Stack } from '@fluentui/react/lib/Stack';
+import { PrimaryButton } from '@fluentui/react/lib/Button';
+
 import { getUserCalendar } from '../common/GraphService';
 import { useAppContext } from '../common/AppContext';
-import { AuthenticatedTemplate, UnauthenticatedTemplate } from '@azure/msal-react';
-import { endOfWeek, startOfWeek } from 'date-fns/esm';
-import { zonedTimeToUtc } from 'date-fns-tz';
-import { PrimaryButton } from '@fluentui/react/lib/Button';
-import CalendarRow from './CalendarRow';
+
+import WeekDay from './WeekDay'
+import { buildEmptyWeek, IWeek, mergeEvents } from './CalendarService';
 
 export default function Calendar() {
     const app = useAppContext();
 
     const [events, setEvents] = useState<Event[]>();
-    const [startDate, setStartDate] = useState<Date>();
-    const [endDate, setEndDate] = useState<Date>();
+    const [week, setWeek] = useState<IWeek>();
 
     useEffect(() => {
         const loadEvents = async () => {
@@ -24,13 +25,11 @@ export default function Calendar() {
                     const ianaTimeZones = findIana(app.user?.timeZone!);
                     const timezone = ianaTimeZones[0].valueOf();
 
-                    const now = new Date();
-                    const start = zonedTimeToUtc(startOfWeek(now), timezone);
-                    const end = zonedTimeToUtc(endOfWeek(now), timezone);
-                    setStartDate(start);
-                    setEndDate(end);
+                    const emptyWeek = buildEmptyWeek(new Date(), timezone);
+                    const events = await getUserCalendar(app.authProvider!, timezone, emptyWeek.startDate!, emptyWeek.endDate!);
+                    const mergedWeek = mergeEvents(emptyWeek, events);
 
-                    const events = await getUserCalendar(app.authProvider!, timezone, start!, end!);
+                    setWeek(mergedWeek);
                     setEvents(events);
                 } catch (err: any) {
                     app.displayError!(err.message);
@@ -41,32 +40,13 @@ export default function Calendar() {
         loadEvents();
     }, [app.user]);
 
-    const dayGapStackTokens: IStackTokens = {
-        childrenGap: 10,
-        padding: 10,
-    };
-
     return (
         <>
             <AuthenticatedTemplate>
-                Start: {startDate?.toISOString()}
-                <br /> End: {endDate?.toISOString()}
+                Start: {week?.startDate?.toISOString()}
+                <br /> End: {week?.endDate?.toISOString()}
                 <Stack horizontal>
-                    <Stack tokens={dayGapStackTokens}>
-                        {events?.map(event => <CalendarRow event={event} />)}
-                    </Stack>
-                    <Stack tokens={dayGapStackTokens}>
-                        {events?.map(event => <CalendarRow event={event} />)}
-                    </Stack>
-                    <Stack tokens={dayGapStackTokens}>
-                        {events?.map(event => <CalendarRow event={event} />)}
-                    </Stack>
-                    <Stack tokens={dayGapStackTokens}>
-                        {events?.map(event => <CalendarRow event={event} />)}
-                    </Stack>
-                    <Stack tokens={dayGapStackTokens}>
-                        {events?.map(event => <CalendarRow event={event} />)}
-                    </Stack>
+                    {week?.days.map(day => <WeekDay day={day} />)}
                 </Stack>
                 {/* <pre><code>{JSON.stringify(events, null, 2)}</code></pre> */}
             </AuthenticatedTemplate>
@@ -76,3 +56,4 @@ export default function Calendar() {
         </>
     );
 }
+

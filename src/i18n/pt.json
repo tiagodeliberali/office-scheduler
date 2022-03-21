@@ -1,0 +1,11 @@
+{
+    "welcome": {
+        "overview": "Um jeito fácil de deixar a sua agenda trabalhar apra você!",
+        "title": "Bem vinda __name__!",
+        "description": "Use a barra de navegação para começar",
+        "signin": "Entrar"
+    },
+    "slot": {
+        "empty": "Espaço livre"
+    }
+}

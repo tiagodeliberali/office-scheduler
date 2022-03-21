@@ -1,0 +1,11 @@
+{
+    "welcome": {
+        "overview": "An easy way to keep your schedule working for you!",
+        "title": "Welcome __name__!",
+        "description": "Use the navigation bar at the top of the page to get started.",
+        "signin": "Click here to sign in"
+    },
+    "slot": {
+        "empty": "Empty slot"
+    }
+}
