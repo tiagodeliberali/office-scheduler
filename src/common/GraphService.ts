@@ -28,15 +28,12 @@ export async function getUser(authProvider: AuthCodeMSALBrowserAuthenticationPro
     return user;
 }
 
-export async function getUserWeekCalendar(authProvider: AuthCodeMSALBrowserAuthenticationProvider,
-    timeZone: string): Promise<Event[]> {
+export async function getUserCalendar(
+    authProvider: AuthCodeMSALBrowserAuthenticationProvider,
+    timeZone: string,
+    startDateTime: Date,
+    endDateTime: Date): Promise<Event[]> {
     ensureClient(authProvider);
-
-    // Generate startDateTime and endDateTime query params
-    // to display a 7-day window
-    const now = new Date();
-    const startDateTime = zonedTimeToUtc(startOfWeek(now), timeZone).toISOString();
-    const endDateTime = zonedTimeToUtc(endOfWeek(now), timeZone).toISOString();
 
     // GET /me/calendarview?startDateTime=''&endDateTime=''
     // &$select=subject,organizer,start,end
@@ -45,7 +42,7 @@ export async function getUserWeekCalendar(authProvider: AuthCodeMSALBrowserAuthe
     var response: PageCollection = await graphClient!
         .api('/me/calendarview')
         .header('Prefer', `outlook.timezone="${timeZone}"`)
-        .query({ startDateTime: startDateTime, endDateTime: endDateTime })
+        .query({ startDateTime: startDateTime.toISOString(), endDateTime: endDateTime.toISOString() })
         .select('attendees,subject,organizer,start,end')
         .orderby('start/dateTime')
         .top(25)
