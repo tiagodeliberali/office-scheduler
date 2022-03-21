@@ -25,9 +25,8 @@ const iconClass = mergeStyles({
     fontSize: 30,
     margin: '0 25px',
 });
+
 const classNames = mergeStyleSets({
-    deepSkyBlue: [{ color: 'deepskyblue' }, iconClass],
-    greenYellow: [{ color: 'greenyellow' }, iconClass],
     lightgray: [{ color: 'lightgray' }, iconClass],
 });
 
@@ -46,7 +45,7 @@ export default function EmptySlot({ slot }: IEmptySlotProps) {
     const stackItemStyles: IStackItemStyles = {
         root: {
             paddingTop: 16,
-            paddingRight: 170,
+            paddingRight: 108,
         },
     };
 
@@ -57,13 +56,13 @@ export default function EmptySlot({ slot }: IEmptySlotProps) {
             <Stack>
                 <Stack horizontal>
                     <Stack.Item align="center" styles={stackItemStyles}>
-                        <DocumentCardTitle title={format(slot.startDate, "HH:mm")} />
+                        <DocumentCardTitle title={format(slot.startDate, "HH:mm") + '-' + format(slot.endDate, "HH:mm")} />
                     </Stack.Item>
                     <DocumentCardLogo {...logoProps} />
                 </Stack>
 
 
-                <DocumentCardStatus statusIcon="people" status={T("slot.empty")?.toString()!} />
+                <DocumentCardStatus statusIcon="add" status={T("slot.empty")?.toString()!} />
             </Stack>
         </DocumentCard>
     );

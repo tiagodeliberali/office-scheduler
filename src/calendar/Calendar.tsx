@@ -10,7 +10,10 @@ import { getUserCalendar } from '../common/GraphService';
 import { useAppContext } from '../common/AppContext';
 
 import WeekDay from './WeekDay'
-import { buildEmptyWeek, IWeek, mergeEvents } from './CalendarService';
+import { buildEmptyWeek, IWeek, mergeEvents, newDateOnTimeZone } from './CalendarService';
+import { format } from 'date-fns/esm';
+
+import { Text, ITextProps } from '@fluentui/react/lib/Text';
 
 export default function Calendar() {
     const app = useAppContext();
@@ -25,7 +28,7 @@ export default function Calendar() {
                     const ianaTimeZones = findIana(app.user?.timeZone!);
                     const timezone = ianaTimeZones[0].valueOf();
 
-                    const emptyWeek = buildEmptyWeek(new Date(), timezone);
+                    const emptyWeek = buildEmptyWeek(newDateOnTimeZone(timezone));
                     const events = await getUserCalendar(app.authProvider!, timezone, emptyWeek.startDate!, emptyWeek.endDate!);
                     const mergedWeek = mergeEvents(emptyWeek, events);
 
@@ -43,8 +46,10 @@ export default function Calendar() {
     return (
         <>
             <AuthenticatedTemplate>
-                Start: {week?.startDate?.toISOString()}
-                <br /> End: {week?.endDate?.toISOString()}
+                <Text variant='xxLarge' nowrap block>
+                    {week?.startDate && format(week?.startDate, "MMM/yyyy")}
+                </Text>
+
                 <Stack horizontal>
                     {week?.days.map(day => <WeekDay day={day} />)}
                 </Stack>

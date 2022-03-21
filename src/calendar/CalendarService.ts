@@ -1,6 +1,6 @@
-import { Event } from 'microsoft-graph';
-import { endOfWeek, startOfWeek, add, startOfHour, setHours, setMinutes, startOfDay } from 'date-fns/esm';
-import { zonedTimeToUtc } from 'date-fns-tz';
+import { DateTimeTimeZone, Event, NullableOption } from 'microsoft-graph';
+import { endOfWeek, startOfWeek, add, startOfHour, setHours, setMinutes, startOfDay, isSameDay } from 'date-fns/esm';
+import { toDate } from 'date-fns-tz';
 import { ISlot } from '../Slot/Slot';
 
 export type IWeek = {
@@ -12,6 +12,19 @@ export type IWeek = {
 export type IDay = {
     date: Date,
     slots: ISlot[],
+}
+
+// IMPORTANT: INITIAL APPROACH WORKING DATES ON ORIGINAL TIMEZONE
+// NEED TO IMPROVE FOR MULTI TIMEZONE SCENARIOS
+
+const parseEventDate = (eventDate: NullableOption<DateTimeTimeZone>): Date => {
+    return toDate(eventDate?.dateTime!, { timeZone: eventDate?.timeZone! });
+}
+
+export const newDateOnTimeZone = (timezone: string): Date => {
+    const datestr = (new Date()).toISOString();
+    const datetz = toDate((new Date()).toISOString(), { timeZone: timezone })
+    return toDate((new Date()).toISOString(), { timeZone: timezone });
 }
 
 const createEmptySlots = (referenceDate: Date): ISlot[] => {
@@ -52,17 +65,15 @@ const createEmptySlots = (referenceDate: Date): ISlot[] => {
 
 export const mergeEvents = (emptyWeek: IWeek, events: Event[]): IWeek => {
     events.forEach(event => {
-        emptyWeek.days.filter(day => day.date == new Date(event.start?.dateTime!)).forEach(filteredDay => {
-            const toBeRemoved = filteredDay.slots.forEach((slot, index) => {
-                if (slot.startDate < new Date(event.end?.dateTime!) && slot.endDate > new Date(event.start?.dateTime!)) {
-                    filteredDay.slots.splice(index, 1);
-                }
-            });
-            filteredDay.slots.push({
-                startDate: new Date(event.start?.dateTime!),
-                endDate: new Date(event.end?.dateTime!),
+        emptyWeek.days.filter(day => isSameDay(day.date, parseEventDate(event.start!))).forEach(filteredDay => {
+            const filteredSlots = filteredDay.slots.filter(slot => slot.startDate >= parseEventDate(event.end!) || slot.endDate <= parseEventDate(event.start!));
+            filteredSlots.push({
+                startDate: parseEventDate(event.start!),
+                endDate: parseEventDate(event.end!),
                 event: event
-            })
+            });
+
+            filteredDay.slots = filteredSlots;
         })
     })
 
@@ -70,9 +81,9 @@ export const mergeEvents = (emptyWeek: IWeek, events: Event[]): IWeek => {
 }
 
 
-export const buildEmptyWeek = (referenceDate: Date, timezone: string): IWeek => {
-    const start = startOfDay(zonedTimeToUtc(startOfWeek(referenceDate), timezone));
-    const end = startOfDay(zonedTimeToUtc(endOfWeek(referenceDate), timezone));
+export const buildEmptyWeek = (referenceDate: Date): IWeek => {
+    const start = startOfDay(startOfWeek(referenceDate));
+    const end = startOfDay(endOfWeek(referenceDate));
 
     const week = {
         startDate: start,
