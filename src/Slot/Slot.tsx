@@ -11,11 +11,12 @@ export type ISlot = {
 
 type ISlotProps = {
     slot: ISlot
+    onSchedule: any
 }
 
-export default function CalendarRow({ slot }: ISlotProps) {
+export default function CalendarRow({ slot, onSchedule }: ISlotProps) {
 
     return slot.event
         ? <ScheduledSlot slot={slot} />
-        : <EmptySlot slot={slot} />;
+        : <EmptySlot slot={slot} onSchedule={onSchedule} />;
 }

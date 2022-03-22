@@ -3,10 +3,11 @@ import { format } from 'date-fns/esm';
 import { Text, ITextProps } from '@fluentui/react/lib/Text';
 
 import { IDay } from "./CalendarService";
-import Slot from '../Slot/Slot'
+import Slot from '../slot/Slot'
 
 type IWeekDayProps = {
-    day: IDay
+    day: IDay,
+    onSchedule: any
 }
 
 const dayGapStackTokens: IStackTokens = {
@@ -14,7 +15,7 @@ const dayGapStackTokens: IStackTokens = {
     padding: 10,
 };
 
-export default function WeekDay({ day }: IWeekDayProps) {
+export default function WeekDay({ day, onSchedule }: IWeekDayProps) {
     return (
         <Stack tokens={dayGapStackTokens}>
             <Text variant='xxLarge' nowrap block>
@@ -23,7 +24,7 @@ export default function WeekDay({ day }: IWeekDayProps) {
             <Text variant='large' nowrap block>
                 {format(day.date, "EEE")}
             </Text>
-            {day?.slots.sort((a, b) => (a.startDate < b.startDate) ? -1 : 1).map(event => <Slot slot={event} />)}
+            {day?.slots.sort((a, b) => (a.startDate < b.startDate) ? -1 : 1).map(event => <Slot slot={event} onSchedule={onSchedule} />)}
         </Stack>
     )
 }

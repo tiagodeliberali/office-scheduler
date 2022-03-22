@@ -1,5 +1,5 @@
 import { ISlot } from './Slot';
-import { CustomerArrayCard } from '../Customer/CustomerCard'
+import { CustomerArrayCard } from '../customer/CustomerCard'
 
 import { add, format, getDay, parseISO } from 'date-fns';
 import {
@@ -17,6 +17,7 @@ import { Stack, IStackStyles, IStackTokens, IStackItemStyles } from '@fluentui/r
 import { mergeStyles, mergeStyleSets } from '@fluentui/react/lib/Styling';
 
 import { useT } from "talkr";
+import DocumentOverview from '../document/DocumentOverview';
 
 type IEmptySlotProps = {
     slot: ISlot
@@ -69,6 +70,10 @@ export default function EmptySlot({ slot }: IEmptySlotProps) {
 
                 <Stack.Item styles={stackItemStyles}>
                     <CustomerArrayCard people={slot.event?.attendees} />
+                </Stack.Item>
+
+                <Stack.Item styles={stackItemStyles}>
+                    <DocumentOverview person={slot.event?.attendees && slot.event?.attendees[0]} />
                 </Stack.Item>
             </Stack>
         </DocumentCard>

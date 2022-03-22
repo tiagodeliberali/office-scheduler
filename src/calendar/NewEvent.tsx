@@ -1,121 +1,121 @@
-import { useEffect, useState } from 'react';
-import { NavLink as RouterNavLink, Navigate } from 'react-router-dom';
-import { Attendee, Event } from 'microsoft-graph';
-import { createEvent } from '../common/GraphService';
-import { useAppContext } from '../common/AppContext';
+import {
+    getTheme,
+    mergeStyleSets,
+    FontWeights,
+    ContextualMenu,
+    Toggle,
+    Modal,
+    IDragOptions,
+    IIconProps,
+    Stack,
+    IStackProps,
+    Icon
+} from '@fluentui/react';
+import { DefaultButton, IconButton, IButtonStyles } from '@fluentui/react/lib/Button';
+import { ISlot } from '../slot/Slot';
+import { format } from 'date-fns/esm';
+import { useT } from "talkr";
+import SelectCustomer from '../customer/SelectCustomer';
 
-import { DefaultButton, PrimaryButton } from '@fluentui/react/lib/Button';
-import { TextField, MaskedTextField } from '@fluentui/react/lib/TextField';
+type INewEventProps = {
+    isOpen: boolean
+    hideModal: any,
+    slot?: ISlot
+}
 
-export default function NewEvent() {
-    const app = useAppContext();
+const theme = getTheme();
 
-    const [subject, setSubject] = useState('');
-    const [attendees, setAttendees] = useState('');
-    const [start, setStart] = useState('');
-    const [end, setEnd] = useState('');
-    const [body, setBody] = useState('');
-    const [formDisabled, setFormDisabled] = useState(true);
-    const [redirect, setRedirect] = useState(false);
+const iconButtonStyles: Partial<IButtonStyles> = {
+    root: {
+        color: theme.palette.neutralPrimary,
+        marginLeft: 'auto',
+        marginTop: '4px',
+        marginRight: '2px',
+    },
+    rootHovered: {
+        color: theme.palette.neutralDark,
+    },
+};
 
-    useEffect(() => {
-        setFormDisabled(
-            subject.length === 0 ||
-            start.length === 0 ||
-            end.length === 0);
-    }, [subject, start, end]);
+const contentStyles = mergeStyleSets({
+    container: {
+        display: 'flex',
+        flexFlow: 'column nowrap',
+        alignItems: 'stretch',
+    },
+    header: [
+        {
+            flex: '1 1 auto',
+            borderTop: `4px solid ${theme.palette.themePrimary}`,
+            color: theme.palette.neutralPrimary,
+            display: 'flex',
+            alignItems: 'top',
+            fontWeight: FontWeights.semibold,
+            padding: '0px 12px 14px 24px',
+        },
+    ],
+    title: [
+        theme.fonts.xxLarge,
+        {
+            alignItems: 'center',
+            fontWeight: FontWeights.semibold,
+            padding: '12px 0px 0px 0px',
+        },
+    ],
+    subheader: [
+        theme.fonts.large,
+        {
+            alignItems: 'center',
+            fontWeight: FontWeights.semibold,
+            padding: '6px 12px 0px 0px',
+        },
+    ],
+    body: {
+        flex: '4 4 auto',
+        padding: '0 24px 24px 24px',
+        overflowY: 'hidden',
+        selectors: {
+            p: { margin: '14px 0' },
+            'p:first-child': { marginTop: 0 },
+            'p:last-child': { marginBottom: 0 },
+        },
+    },
+});
 
-    const doCreate = async () => {
-        const attendeeEmails = attendees.split(';');
-        const attendeeArray: Attendee[] = [];
+export default function NewEvent({ isOpen, hideModal, slot }: INewEventProps) {
+    const { T } = useT();
 
-        attendeeEmails.forEach((email) => {
-            if (email.length > 0) {
-                attendeeArray.push({
-                    emailAddress: {
-                        address: email
-                    }
-                });
-            }
-        });
+    return (<Modal
+        isOpen={isOpen}
+        onDismiss={hideModal}
+        isBlocking={false}
+        containerClassName={contentStyles.container}
+    >
+        <div className={contentStyles.header}>
+            <div>
+                <div className={contentStyles.title}>
+                    <Icon
+                        styles={iconButtonStyles}
+                        iconName='calendar'
+                    /> <span>{slot && format(slot.startDate, "dd/MM")}</span>
+                </div>
+                <div className={contentStyles.subheader}>
+                    <Icon
+                        styles={iconButtonStyles}
+                        iconName='clock'
+                    /> <span>{slot && format(slot.startDate, "HH:mm")}</span> - <span>{slot && format(slot.endDate, "HH:mm")}</span>
+                </div>
+            </div>
+            <IconButton
+                styles={iconButtonStyles}
+                iconProps={{ iconName: 'Cancel' }}
+                ariaLabel={T("newevent.close")?.toString()}
+                onClick={hideModal}
+            />
+        </div>
 
-        const newEvent: Event = {
-            subject: subject,
-            // Only add if there are attendees
-            attendees: attendeeArray.length > 0 ? attendeeArray : undefined,
-            // Specify the user's time zone so
-            // the start and end are set correctly
-            start: {
-                dateTime: start,
-                timeZone: app.user?.timeZone
-            },
-            end: {
-                dateTime: end,
-                timeZone: app.user?.timeZone
-            },
-            // Only add if a body was given
-            body: body.length > 0 ? {
-                contentType: 'text',
-                content: body
-            } : undefined
-        };
-
-        try {
-            await createEvent(app.authProvider!, newEvent);
-            setRedirect(true);
-        } catch (err) {
-            app.displayError!('Error creating event', JSON.stringify(err));
-        }
-    };
-
-    if (redirect) {
-        return <Navigate to="/calendar" />
-    }
-
-    return (
-        <>
-            <br />Subject
-            <TextField
-                name="subject"
-                id="subject"
-                value={subject}
-                onChange={(_, value) => setSubject(value || '')} />
-
-            <br />Attendees
-            <TextField
-                name="attendees"
-                id="attendees"
-                placeholder="Enter a list of email addresses, seperated by a semi-colon"
-                value={attendees}
-                onChange={(_, value) => setAttendees(value || '')} />
-
-            <br />Start
-            <TextField
-                name="start"
-                id="start"
-                value={start}
-                onChange={(_, value) => setStart(value || '')} />
-
-            <br />End
-            <TextField
-                name="end"
-                id="end"
-                value={end}
-                onChange={(_, value) => setEnd(value || '')} />
-
-            <br />Body
-            <TextField
-                name="body"
-                id="body"
-                className="mb-3"
-                value={body}
-                onChange={(_, value) => setBody(value || '')} />
-
-            <PrimaryButton
-                disabled={formDisabled}
-                onClick={() => doCreate()}>Create</PrimaryButton>
-            <RouterNavLink to="/calendar"
-                className="btn btn-secondary">Cancel</RouterNavLink>
-        </>
-    );
+        <div className={contentStyles.body}>
+            <SelectCustomer />
+        </div>
+    </Modal>)
 }

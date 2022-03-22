@@ -6,6 +6,13 @@
         "signin": "Entrar"
     },
     "slot": {
-        "empty": "Espaço livre"
+        "empty": "Agendar"
+    },
+    "newevent":{
+        "close": "Fechar"
+    },
+    "selectcustomer": {
+        "search": "Encontrar o paciente",
+        "newcustomer": "Novo paciente"
     }
 }

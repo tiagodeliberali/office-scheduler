@@ -51,13 +51,6 @@ export default function NavBar() {
             commandBarButtonAs: CustomButton,
             href: '/calendar'
         },
-        // {
-        //     key: 'newevent',
-        //     text: 'New event',
-        //     iconProps: { iconName: 'Add' },
-        //     commandBarButtonAs: CustomButton,
-        //     href: '/newevent'
-        // },
     ];
 
     const _farItems: ICommandBarItemProps[] = [

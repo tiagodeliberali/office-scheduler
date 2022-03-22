@@ -6,7 +6,6 @@ import ErrorMessage from './ErrorMessage';
 import NavBar from './NavBar';
 import Welcome from '../Welcome';
 import Calendar from '../calendar/Calendar';
-import NewEvent from '../calendar/NewEvent';
 
 import { Stack } from "@fluentui/react";
 
@@ -31,7 +30,6 @@ export default function App({ pca }: AppProps) {
               <Routes>
                 <Route path="/" element={<Welcome />} />
                 <Route path="/calendar" element={<Calendar />} />
-                <Route path="/newevent" element={<NewEvent />} />
               </Routes>
             </Stack>
           </HashRouter>

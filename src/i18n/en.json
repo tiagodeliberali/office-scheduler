@@ -6,6 +6,13 @@
         "signin": "Click here to sign in"
     },
     "slot": {
-        "empty": "Empty slot"
+        "empty": "Schedule"
+    },
+    "newevent":{
+        "close": "Close"
+    },
+    "selectcustomer": {
+        "search": "Find the customer",
+        "newcustomer": "New customer"
     }
 }

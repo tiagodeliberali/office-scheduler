@@ -1,27 +1,12 @@
 import { Stack, IStackStyles, IStackTokens, IStackItemStyles } from '@fluentui/react/lib/Stack';
-import { mergeStyles, mergeStyleSets } from '@fluentui/react/lib/Styling';
-
 import { useT } from "talkr";
 import { Attendee, NullableOption, ResponseStatus } from 'microsoft-graph';
 import { Persona, PersonaPresence, PersonaSize } from '@fluentui/react';
-import { ResponseType } from '@microsoft/microsoft-graph-client';
+
 
 type ICustomerArrayCardProps = {
     people: NullableOption<Attendee[]> | undefined
 }
-
-type ICustomerCardProps = {
-    person: Attendee | undefined
-}
-
-const iconClass = mergeStyles({
-    fontSize: 30,
-    margin: '0 25px',
-});
-
-const classNames = mergeStyleSets({
-    lightgray: [{ color: 'lightgray' }, iconClass],
-});
 
 export function CustomerArrayCard({ people }: ICustomerArrayCardProps) {
     const { T } = useT();
@@ -33,14 +18,8 @@ export function CustomerArrayCard({ people }: ICustomerArrayCardProps) {
     );
 }
 
-const buildPresence = (status: ResponseStatus): PersonaPresence => {
-    if (status.response == 'accepted') {
-        return PersonaPresence.online;
-    } else if (status.response == 'declined') {
-        return PersonaPresence.blocked;
-    }
-
-    return PersonaPresence.away;
+type ICustomerCardProps = {
+    person: Attendee | undefined
 }
 
 export default function CustomerCard({ person }: ICustomerCardProps) {
@@ -60,4 +39,14 @@ export default function CustomerCard({ person }: ICustomerCardProps) {
             presence={buildPresence(person?.status!)}
             size={PersonaSize.size40} />
     );
+}
+
+const buildPresence = (status: ResponseStatus): PersonaPresence => {
+    if (status.response == 'accepted') {
+        return PersonaPresence.online;
+    } else if (status.response == 'declined') {
+        return PersonaPresence.blocked;
+    }
+
+    return PersonaPresence.away;
 }
