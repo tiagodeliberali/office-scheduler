@@ -16,6 +16,12 @@ import { ISlot } from '../slot/Slot';
 import { format } from 'date-fns/esm';
 import { useT } from "talkr";
 import SelectCustomer from '../customer/SelectCustomer';
+import { PrimaryButton } from '@fluentui/react/lib/Button';
+
+import { useEffect, useState, useReducer } from 'react';
+import { Contact, Event } from 'microsoft-graph';
+import { createEvent } from './CalendarGraphService';
+import { useAppContext } from '../common/AppContext';
 
 type INewEventProps = {
     isOpen: boolean
@@ -83,39 +89,79 @@ const contentStyles = mergeStyleSets({
 });
 
 export default function NewEvent({ isOpen, hideModal, slot }: INewEventProps) {
+    const app = useAppContext();
     const { T } = useT();
+
+    const [selectedCustomer, setSelectedCustomer] = useState<Contact | undefined>();
+
+    const closeModal = () => {
+        hideModal()
+        setSelectedCustomer(undefined)
+    }
+
+    const createSchedule = async (customer: Contact) => {
+        const email = customer?.emailAddresses && customer?.emailAddresses.length > 0 && customer?.emailAddresses[0];
+        const payload: Event = {
+            start: {
+                dateTime: slot?.startDate.toISOString(),
+                timeZone: app.user?.timeZone
+            },
+            end: {
+                dateTime: slot?.endDate.toISOString(),
+                timeZone: app.user?.timeZone
+            },
+            subject: T("newevent.eventsubject")?.toString()
+        };
+
+        if (email) {
+            payload.attendees = [{
+                type: 'required',
+                emailAddress: {
+                    address: email.address,
+                    name: email.name
+                }
+            }]
+        }
+        const event = await createEvent(app.authProvider!, payload);
+        slot!.event = event;
+        closeModal();
+    }
 
     return (<Modal
         isOpen={isOpen}
-        onDismiss={hideModal}
+        onDismiss={closeModal}
         isBlocking={false}
         containerClassName={contentStyles.container}
     >
-        <div className={contentStyles.header}>
-            <div>
-                <div className={contentStyles.title}>
-                    <Icon
-                        styles={iconButtonStyles}
-                        iconName='calendar'
-                    /> <span>{slot && format(slot.startDate, "dd/MM")}</span>
+        <Stack>
+            <div className={contentStyles.header}>
+                <div>
+                    <div className={contentStyles.title}>
+                        <Icon
+                            styles={iconButtonStyles}
+                            iconName='calendar'
+                        /> <span>{slot && format(slot.startDate, "dd/MM")}</span>
+                    </div>
+                    <div className={contentStyles.subheader}>
+                        <Icon
+                            styles={iconButtonStyles}
+                            iconName='clock'
+                        /> <span>{slot && format(slot.startDate, "HH:mm")}</span> - <span>{slot && format(slot.endDate, "HH:mm")}</span>
+                    </div>
                 </div>
-                <div className={contentStyles.subheader}>
-                    <Icon
-                        styles={iconButtonStyles}
-                        iconName='clock'
-                    /> <span>{slot && format(slot.startDate, "HH:mm")}</span> - <span>{slot && format(slot.endDate, "HH:mm")}</span>
-                </div>
+                <IconButton
+                    styles={iconButtonStyles}
+                    iconProps={{ iconName: 'Cancel' }}
+                    ariaLabel={T("newevent.close")?.toString()}
+                    onClick={(closeModal)}
+                />
             </div>
-            <IconButton
-                styles={iconButtonStyles}
-                iconProps={{ iconName: 'Cancel' }}
-                ariaLabel={T("newevent.close")?.toString()}
-                onClick={hideModal}
-            />
-        </div>
 
-        <div className={contentStyles.body}>
-            <SelectCustomer />
-        </div>
+            <div className={contentStyles.body}>
+                <SelectCustomer onSelected={(contact: Contact) => setSelectedCustomer(contact)} />
+            </div>
+
+            {selectedCustomer && <PrimaryButton text={T("selectcustomer.schedule")?.toString()} onClick={() => createSchedule(selectedCustomer)} />}
+        </Stack>
     </Modal>)
 }

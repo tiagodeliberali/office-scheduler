@@ -1,51 +1,44 @@
-import { Client, GraphRequestOptions, PageCollection, PageIterator } from '@microsoft/microsoft-graph-client';
+import { Client, PageCollection, PageIterator } from '@microsoft/microsoft-graph-client';
 import { AuthCodeMSALBrowserAuthenticationProvider } from '@microsoft/microsoft-graph-client/authProviders/authCodeMsalBrowser';
-import { Event } from 'microsoft-graph';
+import { Contact } from 'microsoft-graph';
 import { ensureClient } from '../common/GraphService';
 
 let cachedGraphClient: Client | undefined = undefined;
 
-export async function getUserCalendar(
+export async function getContactList(
     authProvider: AuthCodeMSALBrowserAuthenticationProvider,
-    timeZone: string,
-    startDateTime: Date,
-    endDateTime: Date): Promise<Event[]> {
+    name: string): Promise<Contact[]> {
     cachedGraphClient = ensureClient(authProvider, cachedGraphClient);
 
-    // GET /me/calendarview?startDateTime=''&endDateTime=''
-    // &$select=subject,organizer,start,end
-    // &$orderby=start/dateTime
-    // &$top=50
     var response: PageCollection = await cachedGraphClient!
-        .api('/me/calendarview')
-        .header('Prefer', `outlook.timezone="${timeZone}"`)
-        .query({ startDateTime: startDateTime.toISOString(), endDateTime: endDateTime.toISOString() })
-        .select('attendees,subject,organizer,start,end,bodyPreview,body,location,id,isCancelled,recurrence')
-        .orderby('start/dateTime')
+        .api('/me/contacts')
+        .filter(`contains(displayName,'${name}')`)
+        .select('birthday,children,companyName,displayName,emailAddresses,givenName,surname,homeAddress,mobilePhone,personalNotes,profession,spouseName,photo')
+        .orderby('displayName')
         .top(25)
         .get();
 
     if (response["@odata.nextLink"]) {
-        // Presence of the nextLink property indicates more results are available
-        // Use a page iterator to get all results
-        var events: Event[] = [];
-
-        // Must include the time zone header in page
-        // requests too
-        var options: GraphRequestOptions = {
-            headers: { 'Prefer': `outlook.timezone="${timeZone}"` }
-        };
+        var contacts: Contact[] = [];
 
         var pageIterator = new PageIterator(cachedGraphClient!, response, (event) => {
-            events.push(event);
+            contacts.push(event);
             return true;
-        }, options);
+        });
 
         await pageIterator.iterate();
 
-        return events;
+        return contacts;
     } else {
-
         return response.value;
     }
+}
+
+export async function createContact(authProvider: AuthCodeMSALBrowserAuthenticationProvider,
+    newContact: Contact): Promise<Contact> {
+    cachedGraphClient = ensureClient(authProvider, cachedGraphClient);
+
+    return await cachedGraphClient!
+        .api('/me/contacts')
+        .post(newContact);
 }

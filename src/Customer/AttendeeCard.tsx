@@ -8,12 +8,12 @@ type ICustomerArrayCardProps = {
     people: NullableOption<Attendee[]> | undefined
 }
 
-export function CustomerArrayCard({ people }: ICustomerArrayCardProps) {
+export function AttendeeArrayCard({ people }: ICustomerArrayCardProps) {
     const { T } = useT();
 
     return (
         <div>
-            {people?.map(person => <CustomerCard person={person} />)}
+            {people?.map(person => <AttendeeCard person={person} />)}
         </div>
     );
 }
@@ -22,7 +22,7 @@ type ICustomerCardProps = {
     person: Attendee | undefined
 }
 
-export default function CustomerCard({ person }: ICustomerCardProps) {
+export default function AttendeeCard({ person }: ICustomerCardProps) {
     const { T } = useT();
 
     const stackItemStyles: IStackItemStyles = {

@@ -1,5 +1,5 @@
 import { ISlot } from './Slot';
-import { CustomerArrayCard } from '../customer/CustomerCard'
+import { AttendeeArrayCard } from '../customer/AttendeeCard'
 
 import { add, format, getDay, parseISO } from 'date-fns';
 import {
@@ -69,7 +69,7 @@ export default function EmptySlot({ slot }: IEmptySlotProps) {
                 </Stack>
 
                 <Stack.Item styles={stackItemStyles}>
-                    <CustomerArrayCard people={slot.event?.attendees} />
+                    <AttendeeArrayCard people={slot.event?.attendees} />
                 </Stack.Item>
 
                 <Stack.Item styles={stackItemStyles}>

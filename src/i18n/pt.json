@@ -9,10 +9,19 @@
         "empty": "Agendar"
     },
     "newevent":{
-        "close": "Fechar"
+        "close": "Fechar",
+        "eventsubject": "Convite para consulta"
     },
     "selectcustomer": {
         "search": "Encontrar o paciente",
-        "newcustomer": "Novo paciente"
+        "newcustomer": "Novo paciente",
+        "schedule": "Agendar",
+        "firstname": "Primeiro nome",
+        "lastname": "Sobrenome",
+        "email": "Email",
+        "create": "Criar contato"
+    },
+    "contactcard": {
+        "notfilled": "<não preenchido>"
     }
 }
