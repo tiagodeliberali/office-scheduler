@@ -30,7 +30,7 @@ export default function SelectCustomer({ onSelected }: ISelectCustomerProps) {
         }
     }
 
-    const selectCustomer = (person: Contact) => {
+    const selectContact = (person: Contact) => {
         setSelectedCustomer(person)
         onSelected(person)
     }
@@ -46,7 +46,7 @@ export default function SelectCustomer({ onSelected }: ISelectCustomerProps) {
 
         const newContact = await createContact(app.authProvider!, createdCustomer!)
         setCreatedCustomer(undefined);
-        selectCustomer(newContact)
+        selectContact(newContact)
     }
 
     const cardStyles: IDocumentCardStyles = {
@@ -61,24 +61,24 @@ export default function SelectCustomer({ onSelected }: ISelectCustomerProps) {
     return (
         <Stack>
             {!selectedCustomer && !createdCustomer && <>
-                <TextField label={T("selectcustomer.search")?.toString()} onChange={(_, value) => loadContacts(value || '', setContacts)} />
+                <TextField label={T("selectContact.search")?.toString()} onChange={(_, value) => loadContacts(value || '', setContacts)} />
                 <Stack styles={cardStyles}>
-                    {contacts?.map(contact => <ContactCard person={contact} onSelected={selectCustomer} />)}
+                    {contacts?.map(contact => <ContactCard person={contact} onSelected={selectContact} />)}
                 </Stack>
                 <Stack.Item align="end" styles={stackButtonItemStyles}>
                     {!hasContacts(contacts) && <ActionButton
                         iconProps={{ iconName: 'AddFriend' }}
                         onClick={() => setCreatedCustomer({ categories: ["patient"] })}
-                        text={T("selectcustomer.create")?.toString()} />}
+                        text={T("selectContact.create")?.toString()} />}
                 </Stack.Item>
             </>}
             {
                 !selectedCustomer && createdCustomer && <>
-                    <TextField label={T("selectcustomer.firstname")?.toString()} onChange={(_, value) => setCreatedCustomer({ ...createdCustomer, givenName: value })} />
-                    <TextField label={T("selectcustomer.lastname")?.toString()} onChange={(_, value) => setCreatedCustomer({ ...createdCustomer, surname: value })} />
-                    <TextField label={T("selectcustomer.email")?.toString()} onChange={(_, value) => setCreatedCustomer({ ...createdCustomer, emailAddresses: [{ address: value }] })} />
+                    <TextField label={T("selectContact.firstName")?.toString()} onChange={(_, value) => setCreatedCustomer({ ...createdCustomer, givenName: value })} />
+                    <TextField label={T("selectContact.lastName")?.toString()} onChange={(_, value) => setCreatedCustomer({ ...createdCustomer, surname: value })} />
+                    <TextField label={T("selectContact.email")?.toString()} onChange={(_, value) => setCreatedCustomer({ ...createdCustomer, emailAddresses: [{ address: value }] })} />
                     <br /><br />
-                    <PrimaryButton text={T("selectcustomer.create")?.toString()} onClick={createContactAndSelect} />
+                    <PrimaryButton text={T("selectContact.create")?.toString()} onClick={createContactAndSelect} />
                 </>
             }
             {

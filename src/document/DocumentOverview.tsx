@@ -1,13 +1,13 @@
-import { useEffect, useState, useReducer } from 'react';
-import { Stack, IStackStyles, IStackTokens, IStackItemStyles } from '@fluentui/react/lib/Stack';
+import { useEffect, useState } from 'react';
+import { Stack } from '@fluentui/react/lib/Stack';
 import { useAppContext } from '../common/AppContext';
 import { parseISO, isSameDay, format } from 'date-fns/esm';
 import { useT } from "talkr";
 import { Contact } from 'microsoft-graph';
 import { initializeCustomerSection, addCustomerSession } from './DocumentGraphService';
-import { PrimaryButton } from '@fluentui/react';
+import { DefaultButton } from '@fluentui/react';
 import { ISlot } from '../slot/Slot';
-
+import SessionsOverview from './SessionsOverview';
 
 type IDocumentOverviewProps = {
     contact: Contact | undefined,
@@ -35,7 +35,7 @@ export default function DocumentOverview({ contact, slot }: IDocumentOverviewPro
     }, [contact]);
 
     const initializeAnamnese = async () => {
-        const updatedContact = await initializeCustomerSection(app.authProvider!, contact!, T("documentoverview.anamnese")?.toString()!);
+        const updatedContact = await initializeCustomerSection(app.authProvider!, contact!, T("documentOverview.anamnese")?.toString()!);
         updateSessions(updatedContact)
     }
 
@@ -44,7 +44,7 @@ export default function DocumentOverview({ contact, slot }: IDocumentOverviewPro
             app.authProvider!,
             contact!,
             slot.startDate.toISOString(),
-            T("documentoverview.newsession", {
+            T("documentOverview.newsession", {
                 date: format(slot.startDate, "dd/MM/yyyy"),
                 startTime: format(slot.startDate, "HH:mm"),
                 endTime: format(slot.endDate, "HH:mm"),
@@ -54,10 +54,10 @@ export default function DocumentOverview({ contact, slot }: IDocumentOverviewPro
 
     return (
         <Stack>
-            {!sessions && <PrimaryButton text={T("documentoverview.createinitialcontent")?.toString()} onClick={initializeAnamnese} />}
-            {sessions && !containsTodaySession(sessions, slot) && <PrimaryButton text={T("documentoverview.confirmsession")?.toString()} onClick={confirmSession} />}
-            {sessions && containsTodaySession(sessions, slot) && <pre><code>{JSON.stringify(sessions, null, 2)}</code></pre>}
-
+            <SessionsOverview sessions={sessions || []} />
+            {!sessions && <DefaultButton text={T("documentOverview.createInitialContent")?.toString()} onClick={initializeAnamnese} />}
+            {sessions && !containsTodaySession(sessions, slot) && <DefaultButton text={T("documentOverview.confirmSession")?.toString()} onClick={confirmSession} />}
+            {sessions && containsTodaySession(sessions, slot) && <DefaultButton text={T("documentOverview.sessionConfirmed")?.toString()} disabled={true} />}
         </Stack>
     );
 }

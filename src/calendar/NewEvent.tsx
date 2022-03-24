@@ -15,7 +15,7 @@ import { DefaultButton, IconButton, IButtonStyles } from '@fluentui/react/lib/Bu
 import { ISlot } from '../slot/Slot';
 import { format } from 'date-fns/esm';
 import { useT } from "talkr";
-import SelectCustomer from '../customer/SelectCustomer';
+import SelectContact from '../contact/SelectContact';
 import { PrimaryButton } from '@fluentui/react/lib/Button';
 
 import { useEffect, useState, useReducer } from 'react';
@@ -92,15 +92,15 @@ export default function NewEvent({ isOpen, hideModal, slot }: INewEventProps) {
     const app = useAppContext();
     const { T } = useT();
 
-    const [selectedCustomer, setSelectedCustomer] = useState<Contact | undefined>();
+    const [selectedContact, setSelectedContact] = useState<Contact | undefined>();
 
     const closeModal = () => {
         hideModal()
-        setSelectedCustomer(undefined)
+        setSelectedContact(undefined)
     }
 
-    const createSchedule = async (customer: Contact) => {
-        const email = customer?.emailAddresses && customer?.emailAddresses.length > 0 && customer?.emailAddresses[0];
+    const createSchedule = async (contact: Contact) => {
+        const email = contact?.emailAddresses && contact?.emailAddresses.length > 0 && contact?.emailAddresses[0];
         const payload: Event = {
             start: {
                 dateTime: slot?.startDate.toISOString(),
@@ -110,7 +110,7 @@ export default function NewEvent({ isOpen, hideModal, slot }: INewEventProps) {
                 dateTime: slot?.endDate.toISOString(),
                 timeZone: app.user?.timeZone
             },
-            subject: T("newevent.eventsubject")?.toString()
+            subject: T("newEvent.eventSubject")?.toString()
         };
 
         if (email) {
@@ -122,7 +122,7 @@ export default function NewEvent({ isOpen, hideModal, slot }: INewEventProps) {
                 }
             }]
         }
-        const event = await createEvent(app.authProvider!, payload, customer);
+        const event = await createEvent(app.authProvider!, payload, contact);
         slot!.event = event;
         closeModal();
     }
@@ -152,16 +152,16 @@ export default function NewEvent({ isOpen, hideModal, slot }: INewEventProps) {
                 <IconButton
                     styles={iconButtonStyles}
                     iconProps={{ iconName: 'Cancel' }}
-                    ariaLabel={T("newevent.close")?.toString()}
+                    ariaLabel={T("newEvent.close")?.toString()}
                     onClick={(closeModal)}
                 />
             </div>
 
             <div className={contentStyles.body}>
-                <SelectCustomer onSelected={(contact: Contact) => setSelectedCustomer(contact)} />
+                <SelectContact onSelected={(contact: Contact) => setSelectedContact(contact)} />
             </div>
 
-            {selectedCustomer && <PrimaryButton text={T("selectcustomer.schedule")?.toString()} onClick={() => createSchedule(selectedCustomer)} />}
+            {selectedContact && <PrimaryButton text={T("selectContact.schedule")?.toString()} onClick={() => createSchedule(selectedContact)} />}
         </Stack>
     </Modal>)
 }

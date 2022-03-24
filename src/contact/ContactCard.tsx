@@ -67,7 +67,7 @@ export default function ContactCard({ person, onSelected }: IContactCardProps) {
                 <Stack horizontal>
                     <Stack>
                         <Stack.Item align="center" styles={stackHeaderItemStyles}>
-                            <DocumentCardTitle title={person?.givenName || T("contactcard.notfilled")?.toString()!} />
+                            <DocumentCardTitle title={person?.givenName || T("contactCard.notFilled")?.toString()!} />
                         </Stack.Item><Stack.Item styles={stacSubkHeaderItemStyles}>
                             {person?.surname}
                         </Stack.Item>

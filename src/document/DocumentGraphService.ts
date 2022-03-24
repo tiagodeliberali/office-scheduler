@@ -2,7 +2,7 @@ import { Client, PageCollection, PageIterator } from '@microsoft/microsoft-graph
 import { AuthCodeMSALBrowserAuthenticationProvider } from '@microsoft/microsoft-graph-client/authProviders/authCodeMsalBrowser';
 import { Notebook, Contact, OnenoteSection } from 'microsoft-graph';
 import { ensureClient } from '../common/GraphService';
-import { updateArrayOfSessions } from '../customer/ContactGraphService';
+import { updateArrayOfSessions } from '../contact/ContactGraphService';
 
 let cachedGraphClient: Client | undefined = undefined;
 let cachedPromiseNotebook: Promise<Notebook> | undefined = undefined;

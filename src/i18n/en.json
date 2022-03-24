@@ -8,29 +8,36 @@
     "slot": {
         "empty": "Schedule"
     },
-    "newevent":{
+    "newEvent":{
         "close": "Close",
-        "eventsubject": "Schedule invitation"
+        "eventSubject": "Schedule invitation"
     },
-    "selectcustomer": {
+    "selectContact": {
         "search": "Find the customer",
-        "newcustomer": "New customer",
+        "newContact": "New customer",
         "schedule": "Schedule",
-        "firstname": "First name",
-        "lastname": "Last name",
+        "firstName": "First name",
+        "lastName": "Last name",
         "email": "Email",
         "create": "Create contact"
     },
-    "contactcard": {
-        "notfilled": "<not filled>"
+    "contactCard": {
+        "notFilled": "<not filled>"
     },
-    "scheduledslot":{
-        "usernotfound": "Contact not found"
+    "scheduledSlot":{
+        "userNotFound": "Contact not found"
     },
-    "documentoverview": {
-        "createinitialcontent": "Create anamnese",
+    "documentOverview": {
+        "createInitialContent": "Create anamnese",
         "anamnese": "<html><head><title>Anamnese</title></head><body><h1>Hello!</h1><p>Fill some content here</p></body></html>",
         "newsession": "<html><head><title>__date__ at __startTime__</title></head><body><h1>Session details</h1><p>Date: __date__<br />Start time: __startTime__ <br />End time: __endTime__</p></body></html>",
-        "confirmsession": "Confirm session happened"
+        "confirmSession": "Confirm session happened",
+        "sessionConfirmed": "Session confirmed!"
+    },
+    "sessionsOverview": {
+        "noAnamnese": "No anamnese created",
+        "noSession": "No session concluded yet",
+        "firstSession": "First session concluded at __date__",
+        "sessions": "Concluded __qtd__ sessions. Last was __date__"
     }
 }
