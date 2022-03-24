@@ -4,7 +4,6 @@ import { IPublicClientApplication } from '@azure/msal-browser';
 import ProvideAppContext from './AppContext';
 import ErrorMessage from './ErrorMessage';
 import NavBar from './NavBar';
-import Welcome from '../Welcome';
 import Calendar from '../calendar/Calendar';
 
 import { Stack } from "@fluentui/react";
@@ -24,12 +23,10 @@ export default function App({ pca }: AppProps) {
       <ProvideAppContext>
         <Talkr languages={{ en, pt }} defaultLanguage="en">
           <HashRouter>
-            <NavBar />
             <Stack horizontalAlign="center" gap={25}>
               <ErrorMessage />
               <Routes>
-                <Route path="/" element={<Welcome />} />
-                <Route path="/calendar" element={<Calendar />} />
+                <Route path="/" element={<Calendar />} />
               </Routes>
             </Stack>
           </HashRouter>

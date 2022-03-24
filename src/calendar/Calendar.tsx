@@ -16,9 +16,11 @@ import { format } from 'date-fns/esm';
 
 import { Text } from '@fluentui/react/lib/Text';
 import { ISlot } from '../slot/Slot';
+import { useT } from "talkr";
 
 export default function Calendar() {
     const app = useAppContext();
+    const { T } = useT();
 
     const [events, setEvents] = useState<Event[]>();
     const [week, setWeek] = useState<IWeek>();
@@ -49,7 +51,7 @@ export default function Calendar() {
     return (
         <>
             <AuthenticatedTemplate>
-                <Text variant='xxLarge' nowrap block>
+                <Text variant='xxLarge' nowrap block styles={{ root: { marginTop: 16 } }}>
                     {week?.startDate && format(week?.startDate, "MMM/yyyy")}
                 </Text>
 
@@ -61,7 +63,11 @@ export default function Calendar() {
                 {/* <pre><code>{JSON.stringify(events, null, 2)}</code></pre> */}
             </AuthenticatedTemplate>
             <UnauthenticatedTemplate>
-                <PrimaryButton color="primary" onClick={app.signIn!} text="Click here to sign in" />
+                <h1>Office scheduler</h1>
+                <p className="lead">
+                    {T("welcome.overview")}
+                </p>
+                <PrimaryButton color="primary" onClick={app.signIn!} text={T("welcome.signin")?.toString()} />
             </UnauthenticatedTemplate>
         </>
     );
