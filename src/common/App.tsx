@@ -22,7 +22,7 @@ export default function App({ pca }: AppProps) {
   return (
     <MsalProvider instance={pca}>
       <ProvideAppContext>
-        <Talkr languages={{ en, pt }} defaultLanguage="pt">
+        <Talkr languages={{ en, pt }} defaultLanguage="en">
           <HashRouter>
             <NavBar />
             <Stack horizontalAlign="center" gap={25}>

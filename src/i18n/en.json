@@ -10,7 +10,7 @@
     },
     "newEvent":{
         "close": "Close",
-        "eventSubject": "Schedule invitation",
+        "eventSubject": "Schedule invitation from __name__",
         "schedule": "Schedule",
         "saving": "Saving schedule..."
     },
@@ -30,18 +30,18 @@
         "userNotFound": "Contact not found"
     },
     "documentOverview": {
-        "createInitialContent": "Create anamnese",
-        "anamnese": "<html><head><title>Anamnese</title></head><body><h1>Hello!</h1><p>Fill some content here</p></body></html>",
+        "createInitialContent": "Create anamnesis",
+        "anamnesis": "<html><head><title>Anamnesis</title></head><body><h1>Hello!</h1><p>Fill some content here</p></body></html>",
         "newsession": "<html><head><title>__date__ at __startTime__</title></head><body><h1>Session details</h1><p>Date: __date__<br />Start time: __startTime__ <br />End time: __endTime__</p></body></html>",
         "confirmSession": "Confirm session happened",
         "sessionConfirmed": "Session confirmed!",
-        "savingInitialContent": "Creating anamnese...",
+        "savingInitialContent": "Creating anamnesis...",
         "savingSession": "Confirming session..."
     },
     "sessionsOverview": {
-        "noAnamnese": "No anamnese created",
+        "noAnamnesis": "No anamnesis created",
         "noSession": "No session concluded yet",
         "firstSession": "First session concluded at __date__",
-        "sessions": "Concluded __qtd__ sessions. Last was __date__"
+        "sessions": "__qtd__ sessions. Last was __date__"
     }
 }

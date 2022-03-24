@@ -10,7 +10,7 @@
     },
     "newEvent":{
         "close": "Fechar",
-        "eventSubject": "Convite para consulta",
+        "eventSubject": "Confirmação da consulta com __name__",
         "schedule": "Agendar",
         "saving": "Salvando agendamento..."
     },
@@ -31,15 +31,15 @@
     },
     "documentOverview": {
         "createInitialContent": "Criar anamnese",
-        "anamnese": "<html><head><title>Anamnese</title></head><body><h1>Olá!</h1><p>Adicione sua anamnese aqui</p></body></html>",
-        "newsession": "<html><head><title>__date__ às __startTime__</title></head><body><h1>Detalhes da sessão</h1><p>Data: __date__<br />Início: __startTime__ <br />Fim: __endTime__</p></body></html>",
-        "confirmSession": "Confirmar sessão",
-        "sessionConfirmed": "Sessão confirmada!",
         "savingInitialContent": "Criando anamnese...",
-        "savingSession": "Confirmando sessão..."
+        "anamnesis": "<html><head><title>Anamnese</title></head><body><h1>Olá!</h1><p>Adicione sua anamnese aqui</p></body></html>",
+        "newsession": "<html><head><title>__date__ às __startTime__</title></head><body><h1>Detalhes da sessão</h1><p>Data: __date__<br />Início: __startTime__ <br />Fim: __endTime__</p></body></html>",
+        "confirmSession": "Finalizar sessão",
+        "sessionConfirmed": "Sessão finalizada!",
+        "savingSession": "Finalizando sessão..."
     },
     "sessionsOverview": {
-        "noAnamnese": "Anamnese não foi criada ainda",
+        "noAnamnesis": "Anamnese não foi criada ainda",
         "noSession": "Nenhuma sessão concluida",
         "firstSession": "Uma sessão concluída em __date__",
         "sessions": "__qtd__ sessões. A última foi __date__"

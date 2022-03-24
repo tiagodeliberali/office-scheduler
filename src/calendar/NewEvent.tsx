@@ -108,7 +108,7 @@ export default function NewEvent({ isOpen, hideModal, slot }: INewEventProps) {
                 dateTime: slot?.endDate.toISOString(),
                 timeZone: app.user?.timeZone
             },
-            subject: T("newEvent.eventSubject")?.toString()
+            subject: T("newEvent.eventSubject", { name: app.user?.displayName })?.toString()
         };
 
         if (email) {

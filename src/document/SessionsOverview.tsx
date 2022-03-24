@@ -12,7 +12,7 @@ export default function SessionsOverview({ sessions }: ISessionsOverviewProps) {
 
     let message: string = '';
     if (sessions.length == 0) {
-        message = T("sessionsOverview.noAnamnese")?.toString()!
+        message = T("sessionsOverview.noAnamnesis")?.toString()!
     } else if (sessions.length == 1) {
         message = T("sessionsOverview.noSession")?.toString()!
     } else if (sessions.length == 2) {

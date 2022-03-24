@@ -64,7 +64,7 @@ export async function initializeContactSection(
         .header("Content-type", "application/xhtml+xml")
         .post(pageContent);
 
-    return updateArrayOfSessions(authProvider, contact, ["anamnese"])
+    return updateArrayOfSessions(authProvider, contact, ["anamnesis"])
 }
 
 async function loadOrCreateSection(authProvider: AuthCodeMSALBrowserAuthenticationProvider, sectionName: string): Promise<OnenoteSection> {

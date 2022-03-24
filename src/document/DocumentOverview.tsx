@@ -35,9 +35,9 @@ export default function DocumentOverview({ contact, slot }: IDocumentOverviewPro
         loadSessions();
     }, [contact]);
 
-    const initializeAnamnese = async () => {
+    const initializeAnamnesis = async () => {
         setSavingContent(true);
-        const updatedContact = await initializeContactSection(app.authProvider!, contact!, T("documentOverview.anamnese")?.toString()!);
+        const updatedContact = await initializeContactSection(app.authProvider!, contact!, T("documentOverview.anamnesis")?.toString()!);
         updateSessions(updatedContact)
         setSavingContent(false);
     }
@@ -70,7 +70,7 @@ export default function DocumentOverview({ contact, slot }: IDocumentOverviewPro
             <Stack.Item styles={{ root: { paddingBottom: 16 } }}>
                 <SessionsOverview sessions={sessions || []} />
             </Stack.Item>
-            {!sessions && <DefaultButton text={initialContentButtonValue} disabled={savingContent} onClick={initializeAnamnese} />}
+            {!sessions && <DefaultButton text={initialContentButtonValue} disabled={savingContent} onClick={initializeAnamnesis} />}
             {sessions && !containsTodaySession(sessions, slot) && <DefaultButton text={confirmSSessionButtonValue} disabled={savingContent} onClick={confirmSession} />}
             {sessions && containsTodaySession(sessions, slot) && <DefaultButton text={T("documentOverview.sessionConfirmed")?.toString()} disabled={true} />}
 
