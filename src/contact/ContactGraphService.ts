@@ -18,23 +18,10 @@ export async function getContactList(
         .filter(`contains(displayName,'${name}')`)
         .select('birthday,children,companyName,displayName,emailAddresses,givenName,surname,homeAddress,mobilePhone,personalNotes,profession,spouseName,photo')
         .orderby('displayName')
-        .top(25)
+        .top(5)
         .get();
 
-    if (response["@odata.nextLink"]) {
-        var contacts: Contact[] = [];
-
-        var pageIterator = new PageIterator(cachedGraphClient!, response, (event) => {
-            contacts.push(event);
-            return true;
-        });
-
-        await pageIterator.iterate();
-
-        return contacts;
-    } else {
-        return response.value;
-    }
+    return response.value;
 }
 
 export async function getContact(

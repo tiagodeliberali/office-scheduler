@@ -39,8 +39,10 @@ export default function SelectContact({ onSelected }: ISelectContactProps) {
     const [contacts, setContacts] = useState<Contact[]>();
     const [selectedContact, setSelectedContact] = useState<Contact | undefined>();
     const [createdContact, setCreatedContact] = useState<Contact | undefined>();
+    const [savingContent, setSavingContent] = useState<boolean>(false);
 
     const createContactAndSelect = async () => {
+        setSavingContent(true);
         if (createdContact?.emailAddresses && createdContact?.emailAddresses.length > 0) {
             createdContact.emailAddresses[0].name = `${createdContact?.givenName} ${createdContact?.surname}`;
         }
@@ -48,6 +50,7 @@ export default function SelectContact({ onSelected }: ISelectContactProps) {
         const newContact = await createContact(app.authProvider!, createdContact!)
         setCreatedContact(undefined);
         selectContact(newContact)
+        setSavingContent(false);
     }
 
     const cardStyles: IDocumentCardStyles = {
@@ -58,6 +61,10 @@ export default function SelectContact({ onSelected }: ISelectContactProps) {
         root: {
         },
     };
+
+    const buttonValue = savingContent
+        ? T("selectContact.saving")?.toString()
+        : T("selectContact.create")?.toString()
 
     return (
         <Stack>
@@ -79,7 +86,7 @@ export default function SelectContact({ onSelected }: ISelectContactProps) {
                     <TextField label={T("selectContact.lastName")?.toString()} onChange={(_, value) => setCreatedContact({ ...createdContact, surname: value })} />
                     <TextField label={T("selectContact.email")?.toString()} onChange={(_, value) => setCreatedContact({ ...createdContact, emailAddresses: [{ address: value }] })} />
                     <br /><br />
-                    <PrimaryButton text={T("selectContact.create")?.toString()} onClick={createContactAndSelect} />
+                    <PrimaryButton text={buttonValue} disabled={savingContent} onClick={createContactAndSelect} />
                 </>
             }
             {

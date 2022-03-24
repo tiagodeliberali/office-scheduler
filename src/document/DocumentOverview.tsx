@@ -23,6 +23,7 @@ export default function DocumentOverview({ contact, slot }: IDocumentOverviewPro
     const { T } = useT();
 
     const [sessions, setSessions] = useState<string[] | undefined>();
+    const [savingContent, setSavingContent] = useState<boolean>(false);
 
     const updateSessions = (c: Contact | undefined) => setSessions(c?.multiValueExtendedProperties && c?.multiValueExtendedProperties.length > 0 && c?.multiValueExtendedProperties[0].value || undefined);
 
@@ -35,11 +36,14 @@ export default function DocumentOverview({ contact, slot }: IDocumentOverviewPro
     }, [contact]);
 
     const initializeAnamnese = async () => {
+        setSavingContent(true);
         const updatedContact = await initializeContactSection(app.authProvider!, contact!, T("documentOverview.anamnese")?.toString()!);
         updateSessions(updatedContact)
+        setSavingContent(false);
     }
 
     const confirmSession = async () => {
+        setSavingContent(true);
         const updatedContact = await addContactSession(
             app.authProvider!,
             contact!,
@@ -50,15 +54,24 @@ export default function DocumentOverview({ contact, slot }: IDocumentOverviewPro
                 endTime: format(slot.endDate, "HH:mm"),
             })?.toString()!)
         updateSessions(updatedContact)
+        setSavingContent(false);
     }
+
+    const initialContentButtonValue = savingContent
+        ? T("documentOverview.savingInitialContent")?.toString()
+        : T("documentOverview.createInitialContent")?.toString()
+
+    const confirmSSessionButtonValue = savingContent
+        ? T("documentOverview.savingSession")?.toString()
+        : T("documentOverview.confirmSession")?.toString()
 
     return (
         <Stack>
             <Stack.Item styles={{ root: { paddingBottom: 16 } }}>
                 <SessionsOverview sessions={sessions || []} />
             </Stack.Item>
-            {!sessions && <DefaultButton text={T("documentOverview.createInitialContent")?.toString()} onClick={initializeAnamnese} />}
-            {sessions && !containsTodaySession(sessions, slot) && <DefaultButton text={T("documentOverview.confirmSession")?.toString()} onClick={confirmSession} />}
+            {!sessions && <DefaultButton text={initialContentButtonValue} disabled={savingContent} onClick={initializeAnamnese} />}
+            {sessions && !containsTodaySession(sessions, slot) && <DefaultButton text={confirmSSessionButtonValue} disabled={savingContent} onClick={confirmSession} />}
             {sessions && containsTodaySession(sessions, slot) && <DefaultButton text={T("documentOverview.sessionConfirmed")?.toString()} disabled={true} />}
 
         </Stack>

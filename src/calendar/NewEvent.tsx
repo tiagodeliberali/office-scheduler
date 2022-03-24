@@ -88,6 +88,7 @@ export default function NewEvent({ isOpen, hideModal, slot }: INewEventProps) {
     const { T } = useT();
 
     const [selectedContact, setSelectedContact] = useState<Contact | undefined>();
+    const [savingContent, setSavingContent] = useState<boolean>(false);
 
     const closeModal = () => {
         hideModal()
@@ -95,6 +96,8 @@ export default function NewEvent({ isOpen, hideModal, slot }: INewEventProps) {
     }
 
     const createSchedule = async (contact: Contact) => {
+        setSavingContent(true);
+
         const email = contact?.emailAddresses && contact?.emailAddresses.length > 0 && contact?.emailAddresses[0];
         const payload: Event = {
             start: {
@@ -120,7 +123,12 @@ export default function NewEvent({ isOpen, hideModal, slot }: INewEventProps) {
         const event = await createEvent(app.authProvider!, payload, contact);
         slot!.event = event;
         closeModal();
+        setSavingContent(false);
     }
+
+    const buttonValue = savingContent
+        ? T("newEvent.saving")?.toString()
+        : T("newEvent.schedule")?.toString()
 
     return (<Modal
         isOpen={isOpen}
@@ -156,7 +164,7 @@ export default function NewEvent({ isOpen, hideModal, slot }: INewEventProps) {
                 <SelectContact onSelected={(contact: Contact) => setSelectedContact(contact)} />
             </div>
 
-            {selectedContact && <PrimaryButton text={T("selectContact.schedule")?.toString()} onClick={() => createSchedule(selectedContact)} />}
+            {selectedContact && <PrimaryButton text={buttonValue} disabled={savingContent} onClick={() => createSchedule(selectedContact)} />}
         </Stack>
     </Modal>)
 }

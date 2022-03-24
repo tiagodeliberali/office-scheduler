@@ -10,16 +10,18 @@
     },
     "newEvent":{
         "close": "Fechar",
-        "eventSubject": "Convite para consulta"
+        "eventSubject": "Convite para consulta",
+        "schedule": "Agendar",
+        "saving": "Salvando agendamento..."
     },
     "selectContact": {
         "search": "Encontrar o paciente",
         "newContact": "Novo paciente",
-        "schedule": "Agendar",
         "firstName": "Primeiro nome",
         "lastName": "Sobrenome",
         "email": "Email",
-        "create": "Criar contato"
+        "create": "Criar contato",
+        "saving": "Salvando contato..."
     },
     "contactCard": {
         "notFilled": "<não preenchido>"
@@ -32,7 +34,9 @@
         "anamnese": "<html><head><title>Anamnese</title></head><body><h1>Olá!</h1><p>Adicione sua anamnese aqui</p></body></html>",
         "newsession": "<html><head><title>__date__ às __startTime__</title></head><body><h1>Detalhes da sessão</h1><p>Data: __date__<br />Início: __startTime__ <br />Fim: __endTime__</p></body></html>",
         "confirmSession": "Confirmar sessão",
-        "sessionConfirmed": "Sessão confirmada!"
+        "sessionConfirmed": "Sessão confirmada!",
+        "savingInitialContent": "Criando anamnese...",
+        "savingSession": "Confirmando sessão..."
     },
     "sessionsOverview": {
         "noAnamnese": "Anamnese não foi criada ainda",

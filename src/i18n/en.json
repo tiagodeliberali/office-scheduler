@@ -10,16 +10,18 @@
     },
     "newEvent":{
         "close": "Close",
-        "eventSubject": "Schedule invitation"
+        "eventSubject": "Schedule invitation",
+        "schedule": "Schedule",
+        "saving": "Saving schedule..."
     },
     "selectContact": {
         "search": "Find the contact",
         "newContact": "New contact",
-        "schedule": "Schedule",
         "firstName": "First name",
         "lastName": "Last name",
         "email": "Email",
-        "create": "Create contact"
+        "create": "Create contact",
+        "saving": "Saving contact..."
     },
     "contactCard": {
         "notFilled": "<not filled>"
@@ -32,7 +34,9 @@
         "anamnese": "<html><head><title>Anamnese</title></head><body><h1>Hello!</h1><p>Fill some content here</p></body></html>",
         "newsession": "<html><head><title>__date__ at __startTime__</title></head><body><h1>Session details</h1><p>Date: __date__<br />Start time: __startTime__ <br />End time: __endTime__</p></body></html>",
         "confirmSession": "Confirm session happened",
-        "sessionConfirmed": "Session confirmed!"
+        "sessionConfirmed": "Session confirmed!",
+        "savingInitialContent": "Creating anamnese...",
+        "savingSession": "Confirming session..."
     },
     "sessionsOverview": {
         "noAnamnese": "No anamnese created",
