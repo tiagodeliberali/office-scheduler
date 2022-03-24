@@ -1,6 +1,3 @@
-import { ISlot } from './Slot';
-import { AttendeeArrayCard } from '../customer/AttendeeCard'
-
 import { add, format, getDay, parseISO } from 'date-fns';
 import {
     DocumentCard,
@@ -18,8 +15,14 @@ import { mergeStyles, mergeStyleSets } from '@fluentui/react/lib/Styling';
 
 import { useT } from "talkr";
 import DocumentOverview from '../document/DocumentOverview';
+import ContactCard from '../customer/ContactCard';
+import { Contact } from 'microsoft-graph';
+import { useEffect, useState } from 'react';
+import { useAppContext } from '../common/AppContext';
+import { getContact } from '../customer/ContactGraphService';
+import { ISlot } from './Slot';
 
-type IEmptySlotProps = {
+type IScheduledSlotProps = {
     slot: ISlot
 }
 
@@ -31,8 +34,23 @@ const classNames = mergeStyleSets({
     deepSkyBlue: [{ color: 'deepskyblue' }, iconClass],
 });
 
-export default function EmptySlot({ slot }: IEmptySlotProps) {
+export default function ScheduledSlot({ slot }: IScheduledSlotProps) {
+    const app = useAppContext();
     const { T } = useT();
+
+    const [contact, setContact] = useState<Contact>();
+
+    useEffect(() => {
+        const loadEvents = async () => {
+            const customerId = slot.event?.singleValueExtendedProperties && slot.event?.singleValueExtendedProperties.length > 0 && slot.event?.singleValueExtendedProperties[0].value || undefined;
+
+            if (customerId) {
+                setContact(await getContact(app.authProvider!, customerId))
+            }
+        };
+
+        loadEvents();
+    }, []);
 
     const logoProps: IDocumentCardLogoProps = {
         logoIcon: 'calendar',
@@ -69,11 +87,12 @@ export default function EmptySlot({ slot }: IEmptySlotProps) {
                 </Stack>
 
                 <Stack.Item styles={stackItemStyles}>
-                    <AttendeeArrayCard people={slot.event?.attendees} />
+                    {contact && <ContactCard person={contact} />}
+                    {!contact && <span>{T("scheduledslot.usernotfound")}</span>}
                 </Stack.Item>
 
                 <Stack.Item styles={stackItemStyles}>
-                    <DocumentOverview person={slot.event?.attendees && slot.event?.attendees[0]} />
+                    <DocumentOverview contact={contact} slot={slot} />
                 </Stack.Item>
             </Stack>
         </DocumentCard>

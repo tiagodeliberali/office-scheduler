@@ -122,7 +122,7 @@ export default function NewEvent({ isOpen, hideModal, slot }: INewEventProps) {
                 }
             }]
         }
-        const event = await createEvent(app.authProvider!, payload);
+        const event = await createEvent(app.authProvider!, payload, customer);
         slot!.event = event;
         closeModal();
     }

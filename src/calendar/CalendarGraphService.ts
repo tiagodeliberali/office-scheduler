@@ -1,9 +1,11 @@
 import { Client, GraphRequestOptions, PageCollection, PageIterator } from '@microsoft/microsoft-graph-client';
 import { AuthCodeMSALBrowserAuthenticationProvider } from '@microsoft/microsoft-graph-client/authProviders/authCodeMsalBrowser';
-import { Event } from 'microsoft-graph';
+import { Contact, Event } from 'microsoft-graph';
 import { ensureClient } from '../common/GraphService';
 
 let cachedGraphClient: Client | undefined = undefined;
+
+const CONTACTID_FIELD_NAME = 'String {4fa5d502-de1e-434e-9b07-cb3334aff457} Name ContactId'
 
 export async function getUserCalendar(
     authProvider: AuthCodeMSALBrowserAuthenticationProvider,
@@ -12,26 +14,19 @@ export async function getUserCalendar(
     endDateTime: Date): Promise<Event[]> {
     cachedGraphClient = ensureClient(authProvider, cachedGraphClient);
 
-    // GET /me/calendarview?startDateTime=''&endDateTime=''
-    // &$select=subject,organizer,start,end
-    // &$orderby=start/dateTime
-    // &$top=50
     var response: PageCollection = await cachedGraphClient!
         .api('/me/calendarview')
         .header('Prefer', `outlook.timezone="${timeZone}"`)
-        .query({ startDateTime: startDateTime.toISOString(), endDateTime: endDateTime.toISOString() })
-        .select('attendees,subject,organizer,start,end,bodyPreview,body,location,id,isCancelled,recurrence')
+        .expand(`singleValueExtendedProperties($filter=id eq '${CONTACTID_FIELD_NAME}')`)
+        .query({ startDateTime: startDateTime.toISOString(), endDateTime: endDateTime.toISOString(), isCancelled: 'false' })
+        .select('attendees,subject,organizer,start,end,bodyPreview,body,location,id,isCancelled,recurrence,singleValueExtendedProperties')
         .orderby('start/dateTime')
         .top(25)
         .get();
 
     if (response["@odata.nextLink"]) {
-        // Presence of the nextLink property indicates more results are available
-        // Use a page iterator to get all results
         var events: Event[] = [];
 
-        // Must include the time zone header in page
-        // requests too
         var options: GraphRequestOptions = {
             headers: { 'Prefer': `outlook.timezone="${timeZone}"` }
         };
@@ -51,13 +46,24 @@ export async function getUserCalendar(
 }
 
 export async function createEvent(authProvider: AuthCodeMSALBrowserAuthenticationProvider,
-    newEvent: Event): Promise<Event> {
+    newEvent: Event,
+    contact: Contact): Promise<Event> {
     cachedGraphClient = ensureClient(authProvider, cachedGraphClient);
 
-    // POST /me/events
-    // JSON representation of the new event is sent in the
-    // request body
-    return await cachedGraphClient!
+    newEvent.singleValueExtendedProperties = [{
+        id: CONTACTID_FIELD_NAME,
+        value: contact.id
+    }]
+
+    const event = await cachedGraphClient!
         .api('/me/events')
         .post(newEvent);
+
+    // since it is not returned on the POST, we need to add manually
+    event.singleValueExtendedProperties = [{
+        id: CONTACTID_FIELD_NAME,
+        value: contact.id
+    }]
+
+    return event;
 }

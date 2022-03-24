@@ -17,7 +17,7 @@ import {
 
 type IContactCardProps = {
     person: Contact | undefined,
-    onSelected: any
+    onSelected?: any
 }
 
 export default function ContactCard({ person, onSelected }: IContactCardProps) {

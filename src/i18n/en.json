@@ -23,5 +23,14 @@
     },
     "contactcard": {
         "notfilled": "<not filled>"
+    },
+    "scheduledslot":{
+        "usernotfound": "Contact not found"
+    },
+    "documentoverview": {
+        "createinitialcontent": "Create anamnese",
+        "anamnese": "<html><head><title>Anamnese</title></head><body><h1>Hello!</h1><p>Fill some content here</p></body></html>",
+        "newsession": "<html><head><title>__date__ at __startTime__</title></head><body><h1>Session details</h1><p>Date: __date__<br />Start time: __startTime__ <br />End time: __endTime__</p></body></html>",
+        "confirmsession": "Confirm session happened"
     }
 }

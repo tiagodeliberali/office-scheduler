@@ -4,7 +4,7 @@ import { useT } from "talkr";
 import { Attendee, Contact, NullableOption, ResponseStatus } from 'microsoft-graph';
 import { ActionButton, CommandButton, IDocumentCardStyles, Persona, PersonaPresence, PersonaSize, PrimaryButton } from '@fluentui/react';
 import { TextField } from '@fluentui/react/lib/TextField';
-import { createContact, getContactList } from './CustomerGraphService';
+import { createContact, getContactList } from './ContactGraphService';
 import { useAppContext } from '../common/AppContext';
 import ContactCard from './ContactCard';
 
@@ -83,7 +83,7 @@ export default function SelectCustomer({ onSelected }: ISelectCustomerProps) {
             }
             {
                 selectedCustomer && <>
-                    <ContactCard person={selectedCustomer} onSelected={() => { }} />
+                    <ContactCard person={selectedCustomer} />
                 </>
             }
             {/* <pre><code>{JSON.stringify(contacts, null, 2)}</code></pre> */}
