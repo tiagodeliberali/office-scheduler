@@ -37,7 +37,7 @@
     "sessionsOverview": {
         "noAnamnese": "Anamnese não foi criada ainda",
         "noSession": "Nenhuma sessão concluida",
-        "firstSession": "Primeira sessão concluída em __date__",
-        "sessions": "Concluídas __qtd__ sessões. A última foi __date__"
+        "firstSession": "Uma sessão concluída em __date__",
+        "sessions": "__qtd__ sessões. A última foi __date__"
     }
 }

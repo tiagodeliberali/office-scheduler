@@ -76,23 +76,6 @@ export default function NavBar() {
 
 
     return (
-        //     <RouterNavLink to="/" className="nav-link" exact>Home</RouterNavLink>
-        //   <RouterNavLink to="/calendar" className="nav-link" exact>Calendar</RouterNavLink>
-
-        //   <AuthenticatedTemplate>
-        //                 <NavDropdown title={<UserAvatar user={user} />} id="user-dropdown" align="end">
-        //                   <h5 className="dropdown-item-text mb-0"></h5>
-        //                   <p className="dropdown-item-text text-muted mb-0">{user.email}</p>
-        //                   <Dropdown.Divider />
-        //                   <Dropdown.Item onClick={app.signOut!}>Sign Out</Dropdown.Item>
-        //                 </NavDropdown>
-        //               </AuthenticatedTemplate>
-        //               <UnauthenticatedTemplate>
-        //                 <NavItem>
-        //                   <Nav.Link
-        //                     onClick={}>Sign In</Nav.Link>
-        //                 </NavItem>
-        //               </UnauthenticatedTemplate>
         <CommandBar
             items={_items}
             farItems={_farItems}

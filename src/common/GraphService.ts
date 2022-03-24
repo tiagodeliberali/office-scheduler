@@ -17,9 +17,7 @@ let cachedGraphClient: Client | undefined = undefined;
 export async function getUser(authProvider: AuthCodeMSALBrowserAuthenticationProvider): Promise<User> {
     cachedGraphClient = ensureClient(authProvider, cachedGraphClient);
 
-    // Return the /me API endpoint result as a User object
     const user: User = await cachedGraphClient!.api('/me')
-        // Only retrieve the specific fields needed
         .select('displayName,mail,mailboxSettings,userPrincipalName')
         .get();
 

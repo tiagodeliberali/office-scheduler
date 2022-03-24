@@ -2,16 +2,11 @@ import {
     getTheme,
     mergeStyleSets,
     FontWeights,
-    ContextualMenu,
-    Toggle,
     Modal,
-    IDragOptions,
-    IIconProps,
     Stack,
-    IStackProps,
     Icon
 } from '@fluentui/react';
-import { DefaultButton, IconButton, IButtonStyles } from '@fluentui/react/lib/Button';
+import { IconButton, IButtonStyles } from '@fluentui/react/lib/Button';
 import { ISlot } from '../slot/Slot';
 import { format } from 'date-fns/esm';
 import { useT } from "talkr";

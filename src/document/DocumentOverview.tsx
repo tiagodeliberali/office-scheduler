@@ -54,10 +54,13 @@ export default function DocumentOverview({ contact, slot }: IDocumentOverviewPro
 
     return (
         <Stack>
-            <SessionsOverview sessions={sessions || []} />
+            <Stack.Item styles={{ root: { paddingBottom: 16 } }}>
+                <SessionsOverview sessions={sessions || []} />
+            </Stack.Item>
             {!sessions && <DefaultButton text={T("documentOverview.createInitialContent")?.toString()} onClick={initializeAnamnese} />}
             {sessions && !containsTodaySession(sessions, slot) && <DefaultButton text={T("documentOverview.confirmSession")?.toString()} onClick={confirmSession} />}
             {sessions && containsTodaySession(sessions, slot) && <DefaultButton text={T("documentOverview.sessionConfirmed")?.toString()} disabled={true} />}
+
         </Stack>
     );
 }

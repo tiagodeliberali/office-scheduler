@@ -14,7 +14,7 @@ import WeekDay from './WeekDay'
 import { buildEmptyWeek, IWeek, mergeEvents, newDateOnTimeZone } from './CalendarService';
 import { format } from 'date-fns/esm';
 
-import { Text, ITextProps } from '@fluentui/react/lib/Text';
+import { Text } from '@fluentui/react/lib/Text';
 import { ISlot } from '../slot/Slot';
 
 export default function Calendar() {

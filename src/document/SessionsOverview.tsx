@@ -23,7 +23,7 @@ export default function SessionsOverview({ sessions }: ISessionsOverviewProps) {
 
     return (
         <Stack>
-            <DocumentCardStatus statusIcon="attach" status={message} />
+            <DocumentCardStatus styles={{ root: { margin: 0 } }} statusIcon="attach" status={message} />
         </Stack>
     );
 }

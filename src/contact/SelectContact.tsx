@@ -7,6 +7,7 @@ import { TextField } from '@fluentui/react/lib/TextField';
 import { createContact, getContactList } from './ContactGraphService';
 import { useAppContext } from '../common/AppContext';
 import ContactCard from './ContactCard';
+import SelectableContactCard from './SelectableContactCard';
 
 
 type ISelectContactProps = {
@@ -63,7 +64,7 @@ export default function SelectContact({ onSelected }: ISelectContactProps) {
             {!selectedContact && !createdContact && <>
                 <TextField label={T("selectContact.search")?.toString()} onChange={(_, value) => loadContacts(value || '', setContacts)} />
                 <Stack styles={cardStyles}>
-                    {contacts?.map(contact => <ContactCard person={contact} onSelected={selectContact} />)}
+                    {contacts?.map(contact => <SelectableContactCard person={contact} onSelected={selectContact} />)}
                 </Stack>
                 <Stack.Item align="end" styles={stackButtonItemStyles}>
                     {!hasContacts(contacts) && <ActionButton
@@ -83,7 +84,7 @@ export default function SelectContact({ onSelected }: ISelectContactProps) {
             }
             {
                 selectedContact && <>
-                    <ContactCard person={selectedContact} />
+                    <ContactCard contact={selectedContact} />
                 </>
             }
             {/* <pre><code>{JSON.stringify(contacts, null, 2)}</code></pre> */}

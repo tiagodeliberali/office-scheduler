@@ -52,7 +52,9 @@ export default function ScheduledSlot({ slot }: IScheduledSlotProps) {
 
     const stackItemStyles: IStackItemStyles = {
         root: {
-            padding: 16
+            paddingLeft: 16,
+            paddingRight: 16,
+            paddingBottom: 16
         },
     };
 
@@ -67,7 +69,7 @@ export default function ScheduledSlot({ slot }: IScheduledSlotProps) {
                 </Stack>
 
                 <Stack.Item styles={stackItemStyles}>
-                    {contact && <ContactCard person={contact} />}
+                    {contact && <ContactCard contact={contact} />}
                     {!contact && <span>{T("scheduledSlot.userNotFound")}</span>}
                 </Stack.Item>
 

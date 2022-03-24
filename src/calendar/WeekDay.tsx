@@ -1,6 +1,6 @@
-import { Stack, IStackStyles, IStackTokens, IStackItemStyles } from '@fluentui/react/lib/Stack';
+import { Stack, IStackTokens } from '@fluentui/react/lib/Stack';
 import { format } from 'date-fns/esm';
-import { Text, ITextProps } from '@fluentui/react/lib/Text';
+import { Text } from '@fluentui/react/lib/Text';
 
 import { IDay } from "./CalendarService";
 import Slot from '../slot/Slot'
