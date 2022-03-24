@@ -4,7 +4,7 @@ import { useAppContext } from '../common/AppContext';
 import { parseISO, isSameDay, format } from 'date-fns/esm';
 import { useT } from "talkr";
 import { Contact } from 'microsoft-graph';
-import { initializeCustomerSection, addCustomerSession } from './DocumentGraphService';
+import { initializeContactSection, addContactSession } from './DocumentGraphService';
 import { DefaultButton } from '@fluentui/react';
 import { ISlot } from '../slot/Slot';
 import SessionsOverview from './SessionsOverview';
@@ -35,12 +35,12 @@ export default function DocumentOverview({ contact, slot }: IDocumentOverviewPro
     }, [contact]);
 
     const initializeAnamnese = async () => {
-        const updatedContact = await initializeCustomerSection(app.authProvider!, contact!, T("documentOverview.anamnese")?.toString()!);
+        const updatedContact = await initializeContactSection(app.authProvider!, contact!, T("documentOverview.anamnese")?.toString()!);
         updateSessions(updatedContact)
     }
 
     const confirmSession = async () => {
-        const updatedContact = await addCustomerSession(
+        const updatedContact = await addContactSession(
             app.authProvider!,
             contact!,
             slot.startDate.toISOString(),

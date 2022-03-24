@@ -51,7 +51,7 @@ async function createNotebook(authProvider: AuthCodeMSALBrowserAuthenticationPro
         .post(notebook);
 }
 
-export async function initializeCustomerSection(
+export async function initializeContactSection(
     authProvider: AuthCodeMSALBrowserAuthenticationProvider,
     contact: Contact,
     pageContent: string): Promise<Contact> {
@@ -86,7 +86,7 @@ async function loadOrCreateSection(authProvider: AuthCodeMSALBrowserAuthenticati
             });
 }
 
-export async function addCustomerSession(
+export async function addContactSession(
     authProvider: AuthCodeMSALBrowserAuthenticationProvider,
     contact: Contact,
     session: string,

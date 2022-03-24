@@ -9,7 +9,7 @@ import { useAppContext } from '../common/AppContext';
 import ContactCard from './ContactCard';
 
 
-type ISelectCustomerProps = {
+type ISelectContactProps = {
     onSelected: any
 }
 
@@ -17,7 +17,7 @@ const hasContacts = (contacts: Contact[] | undefined): boolean => {
     return !!contacts && contacts.length > 0
 }
 
-export default function SelectCustomer({ onSelected }: ISelectCustomerProps) {
+export default function SelectContact({ onSelected }: ISelectContactProps) {
     const app = useAppContext();
     const { T } = useT();
 
@@ -31,21 +31,21 @@ export default function SelectCustomer({ onSelected }: ISelectCustomerProps) {
     }
 
     const selectContact = (person: Contact) => {
-        setSelectedCustomer(person)
+        setSelectedContact(person)
         onSelected(person)
     }
 
     const [contacts, setContacts] = useState<Contact[]>();
-    const [selectedCustomer, setSelectedCustomer] = useState<Contact | undefined>();
-    const [createdCustomer, setCreatedCustomer] = useState<Contact | undefined>();
+    const [selectedContact, setSelectedContact] = useState<Contact | undefined>();
+    const [createdContact, setCreatedContact] = useState<Contact | undefined>();
 
     const createContactAndSelect = async () => {
-        if (createdCustomer?.emailAddresses && createdCustomer?.emailAddresses.length > 0) {
-            createdCustomer.emailAddresses[0].name = `${createdCustomer?.givenName} ${createdCustomer?.surname}`;
+        if (createdContact?.emailAddresses && createdContact?.emailAddresses.length > 0) {
+            createdContact.emailAddresses[0].name = `${createdContact?.givenName} ${createdContact?.surname}`;
         }
 
-        const newContact = await createContact(app.authProvider!, createdCustomer!)
-        setCreatedCustomer(undefined);
+        const newContact = await createContact(app.authProvider!, createdContact!)
+        setCreatedContact(undefined);
         selectContact(newContact)
     }
 
@@ -60,7 +60,7 @@ export default function SelectCustomer({ onSelected }: ISelectCustomerProps) {
 
     return (
         <Stack>
-            {!selectedCustomer && !createdCustomer && <>
+            {!selectedContact && !createdContact && <>
                 <TextField label={T("selectContact.search")?.toString()} onChange={(_, value) => loadContacts(value || '', setContacts)} />
                 <Stack styles={cardStyles}>
                     {contacts?.map(contact => <ContactCard person={contact} onSelected={selectContact} />)}
@@ -68,22 +68,22 @@ export default function SelectCustomer({ onSelected }: ISelectCustomerProps) {
                 <Stack.Item align="end" styles={stackButtonItemStyles}>
                     {!hasContacts(contacts) && <ActionButton
                         iconProps={{ iconName: 'AddFriend' }}
-                        onClick={() => setCreatedCustomer({ categories: ["patient"] })}
+                        onClick={() => setCreatedContact({ categories: ["patient"] })}
                         text={T("selectContact.create")?.toString()} />}
                 </Stack.Item>
             </>}
             {
-                !selectedCustomer && createdCustomer && <>
-                    <TextField label={T("selectContact.firstName")?.toString()} onChange={(_, value) => setCreatedCustomer({ ...createdCustomer, givenName: value })} />
-                    <TextField label={T("selectContact.lastName")?.toString()} onChange={(_, value) => setCreatedCustomer({ ...createdCustomer, surname: value })} />
-                    <TextField label={T("selectContact.email")?.toString()} onChange={(_, value) => setCreatedCustomer({ ...createdCustomer, emailAddresses: [{ address: value }] })} />
+                !selectedContact && createdContact && <>
+                    <TextField label={T("selectContact.firstName")?.toString()} onChange={(_, value) => setCreatedContact({ ...createdContact, givenName: value })} />
+                    <TextField label={T("selectContact.lastName")?.toString()} onChange={(_, value) => setCreatedContact({ ...createdContact, surname: value })} />
+                    <TextField label={T("selectContact.email")?.toString()} onChange={(_, value) => setCreatedContact({ ...createdContact, emailAddresses: [{ address: value }] })} />
                     <br /><br />
                     <PrimaryButton text={T("selectContact.create")?.toString()} onClick={createContactAndSelect} />
                 </>
             }
             {
-                selectedCustomer && <>
-                    <ContactCard person={selectedCustomer} />
+                selectedContact && <>
+                    <ContactCard person={selectedContact} />
                 </>
             }
             {/* <pre><code>{JSON.stringify(contacts, null, 2)}</code></pre> */}

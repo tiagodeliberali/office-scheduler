@@ -13,8 +13,8 @@
         "eventSubject": "Schedule invitation"
     },
     "selectContact": {
-        "search": "Find the customer",
-        "newContact": "New customer",
+        "search": "Find the contact",
+        "newContact": "New contact",
         "schedule": "Schedule",
         "firstName": "First name",
         "lastName": "Last name",

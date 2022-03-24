@@ -4,11 +4,9 @@ import {
     DocumentCardTitle,
     DocumentCardLogo,
     IDocumentCardLogoProps,
-    IDocumentCardStyles,
 } from '@fluentui/react/lib/DocumentCard';
 
 import { Stack, IStackItemStyles } from '@fluentui/react/lib/Stack';
-import { mergeStyles, mergeStyleSets } from '@fluentui/react/lib/Styling';
 
 import { useT } from "talkr";
 import DocumentOverview from '../document/DocumentOverview';
@@ -31,10 +29,10 @@ export default function ScheduledSlot({ slot }: IScheduledSlotProps) {
 
     useEffect(() => {
         const loadEvents = async () => {
-            const customerId = slot.event?.singleValueExtendedProperties && slot.event?.singleValueExtendedProperties.length > 0 && slot.event?.singleValueExtendedProperties[0].value || undefined;
+            const contactId = slot.event?.singleValueExtendedProperties && slot.event?.singleValueExtendedProperties.length > 0 && slot.event?.singleValueExtendedProperties[0].value || undefined;
 
-            if (customerId) {
-                setContact(await getContact(app.authProvider!, customerId))
+            if (contactId) {
+                setContact(await getContact(app.authProvider!, contactId))
             }
         };
 
