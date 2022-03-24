@@ -164,7 +164,9 @@ export default function NewEvent({ isOpen, hideModal, slot }: INewEventProps) {
                 <SelectContact onSelected={(contact: Contact) => setSelectedContact(contact)} />
             </div>
 
-            {selectedContact && <PrimaryButton text={buttonValue} disabled={savingContent} onClick={() => createSchedule(selectedContact)} />}
+            <Stack.Item align='center' styles={{ root: { margin: 16 } }}>
+                {selectedContact && <PrimaryButton text={buttonValue} disabled={savingContent} onClick={() => createSchedule(selectedContact)} />}
+            </Stack.Item>
         </Stack>
     </Modal>)
 }
