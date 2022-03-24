@@ -6,7 +6,7 @@ import ErrorMessage from './ErrorMessage';
 import NavBar from './NavBar';
 import Calendar from '../calendar/Calendar';
 
-import { Stack } from "@fluentui/react";
+import { initializeIcons, Stack } from "@fluentui/react";
 
 import { Talkr } from "talkr";
 import en from "../i18n/en.json";
@@ -18,6 +18,8 @@ type AppProps = {
 
 
 export default function App({ pca }: AppProps) {
+  initializeIcons();
+
   return (
     <MsalProvider instance={pca}>
       <ProvideAppContext>

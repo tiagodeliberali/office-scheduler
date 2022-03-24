@@ -1,16 +1,8 @@
 import { Link } from 'react-router-dom';
-import { AuthenticatedTemplate, UnauthenticatedTemplate } from '@azure/msal-react';
 import { AppUser, useAppContext } from './AppContext';
 
 import { CommandBar, ICommandBarItemProps } from '@fluentui/react/lib/CommandBar';
 import { CommandBarButton, IComponentAsProps } from '@fluentui/react';
-
-import { IButtonProps } from '@fluentui/react/lib/Button';
-import { setVirtualParent } from '@fluentui/dom-utilities';
-
-import { initializeIcons } from '@fluentui/react/lib/Icons';
-
-initializeIcons(/* optional base url */);
 
 interface UserAvatarProps {
     user: AppUser
