@@ -24,7 +24,7 @@ jobs:
       - name: yarn build app
         run: |
           npm install
-          npm build
+          npm run build
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
