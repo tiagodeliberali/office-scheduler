@@ -16,6 +16,7 @@ import { useEffect, useState } from 'react';
 import { useAppContext } from '../common/AppContext';
 import { getContact } from '../contact/ContactGraphService';
 import { ISlot } from './BaseSlot';
+import MailOverview from '../mail/MailOverview';
 
 type IScheduledSlotProps = {
     slot: ISlot
@@ -76,6 +77,8 @@ export default function ScheduledSlot({ slot }: IScheduledSlotProps) {
                 <Stack.Item styles={stackItemStyles}>
                     <DocumentOverview contact={contact} slot={slot} />
                 </Stack.Item>
+
+                <MailOverview contact={contact} />
             </Stack>
         </DocumentCard>
     );

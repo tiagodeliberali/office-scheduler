@@ -6,7 +6,8 @@ const config = {
         'mailboxsettings.read',
         'calendars.readwrite',
         'contacts.readwrite',
-        'notes.readwrite'
+        'notes.readwrite',
+        'mail.read'
     ]
 };
 

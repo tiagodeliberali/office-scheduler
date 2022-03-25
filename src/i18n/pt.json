@@ -43,5 +43,10 @@
         "noSession": "Nenhuma sessão concluida",
         "firstSession": "Uma sessão concluída em __date__",
         "sessions": "__qtd__ sessões. A última foi __date__"
+    },
+    "mailOverview":{
+        "count": "+ __qtd__ outros emails",
+        "noSubject": "<sem assunto>",
+        "noEmails": "Nenhum email"
     }
 }
