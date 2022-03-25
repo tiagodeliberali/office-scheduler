@@ -1,7 +1,7 @@
 import { DateTimeTimeZone, Event, NullableOption } from 'microsoft-graph';
 import { endOfWeek, startOfWeek, add, startOfHour, setHours, setMinutes, startOfDay, isSameDay } from 'date-fns/esm';
 import { toDate } from 'date-fns-tz';
-import { ISlot } from '../slot/Slot';
+import { ISlot } from '../slot/BaseSlot';
 
 export type IWeek = {
     startDate: Date,

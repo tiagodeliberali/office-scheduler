@@ -6,7 +6,7 @@ import { useT } from "talkr";
 import { Contact } from 'microsoft-graph';
 import { initializeContactSection, addContactSession } from './DocumentGraphService';
 import { DefaultButton } from '@fluentui/react';
-import { ISlot } from '../slot/Slot';
+import { ISlot } from '../slot/BaseSlot';
 import SessionsOverview from './SessionsOverview';
 
 type IDocumentOverviewProps = {

@@ -15,7 +15,7 @@ import { Contact } from 'microsoft-graph';
 import { useEffect, useState } from 'react';
 import { useAppContext } from '../common/AppContext';
 import { getContact } from '../contact/ContactGraphService';
-import { ISlot } from './Slot';
+import { ISlot } from './BaseSlot';
 
 type IScheduledSlotProps = {
     slot: ISlot

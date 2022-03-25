@@ -15,7 +15,7 @@ import { buildEmptyWeek, IWeek, mergeEvents, newDateOnTimeZone } from './Calenda
 import { format } from 'date-fns/esm';
 
 import { Text } from '@fluentui/react/lib/Text';
-import { ISlot } from '../slot/Slot';
+import { ISlot } from '../slot/BaseSlot';
 import { useT } from "talkr";
 
 export default function Calendar() {

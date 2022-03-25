@@ -3,7 +3,7 @@ import { format } from 'date-fns/esm';
 import { Text } from '@fluentui/react/lib/Text';
 
 import { IDay } from "./CalendarService";
-import Slot from '../slot/Slot'
+import Slot from '../slot/BaseSlot'
 
 type IWeekDayProps = {
     day: IDay,

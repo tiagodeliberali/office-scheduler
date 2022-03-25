@@ -7,7 +7,7 @@ import {
     Icon
 } from '@fluentui/react';
 import { IconButton, IButtonStyles } from '@fluentui/react/lib/Button';
-import { ISlot } from '../slot/Slot';
+import { ISlot } from '../slot/BaseSlot';
 import { format } from 'date-fns/esm';
 import { useT } from "talkr";
 import SelectContact from '../contact/SelectContact';
