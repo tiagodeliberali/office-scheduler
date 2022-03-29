@@ -21,10 +21,8 @@ const parseEventDate = (eventDate: NullableOption<DateTimeTimeZone>): Date => {
     return toDate(eventDate?.dateTime!, { timeZone: eventDate?.timeZone! });
 }
 
-export const newDateOnTimeZone = (timezone: string): Date => {
-    const datestr = (new Date()).toISOString();
-    const datetz = toDate((new Date()).toISOString(), { timeZone: timezone })
-    return toDate((new Date()).toISOString(), { timeZone: timezone });
+export const dateOnTimeZone = (date: Date, timezone: string): Date => {
+    return toDate((date).toISOString(), { timeZone: timezone });
 }
 
 const createEmptySlots = (referenceDate: Date): ISlot[] => {

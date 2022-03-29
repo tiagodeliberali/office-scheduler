@@ -4,19 +4,20 @@ import { Event } from 'microsoft-graph';
 import { AuthenticatedTemplate, UnauthenticatedTemplate } from '@azure/msal-react';
 
 import { Stack } from '@fluentui/react/lib/Stack';
-import { PrimaryButton } from '@fluentui/react/lib/Button';
+import { IconButton, PrimaryButton } from '@fluentui/react/lib/Button';
 
 import { getUserCalendar } from './CalendarGraphService';
 import { useAppContext } from '../common/AppContext';
 import NewEvent from './NewEvent'
 
 import WeekDay from './WeekDay'
-import { buildEmptyWeek, IWeek, mergeEvents, newDateOnTimeZone } from './CalendarService';
+import { buildEmptyWeek, IWeek, mergeEvents, dateOnTimeZone } from './CalendarService';
 import { format } from 'date-fns/esm';
 
 import { Text } from '@fluentui/react/lib/Text';
 import { ISlot } from '../slot/BaseSlot';
 import { useT } from "talkr";
+import { addWeeks } from 'date-fns';
 
 export default function Calendar() {
     const app = useAppContext();
@@ -24,16 +25,17 @@ export default function Calendar() {
 
     const [events, setEvents] = useState<Event[]>();
     const [week, setWeek] = useState<IWeek>();
+    const [referenceDate, setReferenceDate] = useState<Date>(new Date());
     const [modalState, dispatchModal] = useReducer(modalReducer, modalInitialState);
 
     useEffect(() => {
         const loadEvents = async () => {
-            if (app.user && !events) {
+            if (app.user) {
                 try {
                     const ianaTimeZones = findIana(app.user?.timeZone!);
                     const timezone = ianaTimeZones[0].valueOf();
 
-                    const emptyWeek = buildEmptyWeek(newDateOnTimeZone(timezone));
+                    const emptyWeek = buildEmptyWeek(dateOnTimeZone(referenceDate, timezone));
                     const events = await getUserCalendar(app.authProvider!, timezone, emptyWeek.startDate!, emptyWeek.endDate!);
                     const mergedWeek = mergeEvents(emptyWeek, events);
 
@@ -46,14 +48,22 @@ export default function Calendar() {
         };
 
         loadEvents();
-    }, [app.user]);
+    }, [app.user, referenceDate]);
+
+    const addToReferenceDate = (weeks: number) => {
+        setReferenceDate(addWeeks(referenceDate, weeks))
+    }
 
     return (
         <>
             <AuthenticatedTemplate>
-                <Text variant='xxLarge' nowrap block styles={{ root: { marginTop: 16 } }}>
-                    {week?.startDate && format(week?.startDate, "MMM/yyyy")}
-                </Text>
+                <Stack horizontal>
+                    <IconButton iconProps={{ iconName: 'back' }} style={{ marginTop: 20, marginRight: 25 }} onClick={() => addToReferenceDate(-1)} />
+                    <Text variant='xxLarge' nowrap block styles={{ root: { marginTop: 16 } }}>
+                        {week?.startDate && format(week?.startDate, "MMM/yyyy")}
+                    </Text>
+                    <IconButton iconProps={{ iconName: 'forward' }} style={{ marginTop: 20, marginLeft: 20 }} onClick={() => addToReferenceDate(1)} />
+                </Stack>
 
                 <Stack horizontal>
                     {week?.days.map(day => <WeekDay day={day} onSchedule={(slot: ISlot) => dispatchModal({ type: "OPEN_MODAL", slot: slot })} />)}
