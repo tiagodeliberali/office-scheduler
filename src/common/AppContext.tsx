@@ -99,7 +99,8 @@ function useProvideAppContext() {
       }
     };
     checkUser();
-  }, [user, authProvider, msal.instance]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user, msal.instance]);
 
   const displayError = (message: string, debug?: string) => {
     setError({ message, debug });
