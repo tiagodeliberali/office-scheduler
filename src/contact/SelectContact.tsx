@@ -23,7 +23,8 @@ const hasContacts = (contacts: Contact[] | undefined): boolean => {
 
 export default function SelectContact({ onSelected }: ISelectContactProps) {
   const app = useAppContext();
-  const { T } = useT();
+  const { T, setLocale } = useT();
+  app.user && setLocale(app.user.locale);
 
   const loadContacts = async (name: string, saveContactsToState: any) => {
     if (!name) {

@@ -85,7 +85,8 @@ const contentStyles = mergeStyleSets({
 
 export default function NewEvent({ isOpen, hideModal, slot }: INewEventProps) {
   const app = useAppContext();
-  const { T } = useT();
+  const { T, setLocale } = useT();
+  app.user && setLocale(app.user.locale);
 
   const [selectedContact, setSelectedContact] = useState<Contact | undefined>();
   const [savingContent, setSavingContent] = useState<boolean>(false);

@@ -28,7 +28,8 @@ export default function SessionFlowOverview({
   slot,
 }: ISessionFlowOverviewProps) {
   const app = useAppContext();
-  const { T } = useT();
+  const { T, setLocale } = useT();
+  app.user && setLocale(app.user.locale);
 
   const [sessions, setSessions] = useState<string[] | undefined>();
   const [savingContent, setSavingContent] = useState<boolean>(false);

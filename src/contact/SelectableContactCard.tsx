@@ -8,6 +8,7 @@ import {
   DocumentCardTitle,
   IDocumentCardStyles,
 } from "@fluentui/react/lib/DocumentCard";
+import { useAppContext } from "../common/AppContext";
 
 type ISelectableContactCardProps = {
   person: Contact | undefined;
@@ -18,7 +19,9 @@ export default function SelectableContactCard({
   person,
   onSelected,
 }: ISelectableContactCardProps) {
-  const { T } = useT();
+  const app = useAppContext();
+  const { T, setLocale } = useT();
+  app.user && setLocale(app.user.locale);
 
   const cardStyles: IDocumentCardStyles = {
     root: {},

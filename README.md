@@ -16,4 +16,6 @@ https://polite-sand-0725aee10.1.azurestaticapps.net/
 
 ## Before your commit
 
-> npm run go
+> npm run lint
+>
+> npm run prettier

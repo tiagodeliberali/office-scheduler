@@ -24,7 +24,8 @@ type IScheduledSlotProps = {
 
 export default function ScheduledSlot({ slot }: IScheduledSlotProps) {
   const app = useAppContext();
-  const { T } = useT();
+  const { T, setLocale } = useT();
+  app.user && setLocale(app.user.locale);
 
   const [contact, setContact] = useState<Contact>();
 

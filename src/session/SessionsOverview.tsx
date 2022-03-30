@@ -2,13 +2,16 @@ import { DocumentCardStatus } from "@fluentui/react";
 import { Stack } from "@fluentui/react/lib/Stack";
 import { parseISO, format } from "date-fns/esm";
 import { useT } from "talkr";
+import { useAppContext } from "../common/AppContext";
 
 type ISessionsOverviewProps = {
   sessions: string[];
 };
 
 export default function SessionsOverview({ sessions }: ISessionsOverviewProps) {
-  const { T } = useT();
+  const app = useAppContext();
+  const { T, setLocale } = useT();
+  app.user && setLocale(app.user.locale);
 
   let message = "";
   if (sessions.length === 0) {

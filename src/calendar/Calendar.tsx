@@ -28,7 +28,8 @@ import { addWeeks } from "date-fns";
 
 export default function Calendar() {
   const app = useAppContext();
-  const { T } = useT();
+  const { T, setLocale } = useT();
+  app.user && setLocale(app.user.locale);
 
   const [week, setWeek] = useState<IWeek>();
   const [referenceDate, setReferenceDate] = useState<Date>(new Date());

@@ -27,7 +27,8 @@ const displayText = (value: string): string => {
 
 export default function MailOverview({ contact }: IMailOverviewProps) {
   const app = useAppContext();
-  const { T } = useT();
+  const { T, setLocale } = useT();
+  app.user && setLocale(app.user.locale);
 
   const [mails, setMails] = useState<IMessage[]>([]);
   const emptySubject = useMemo(

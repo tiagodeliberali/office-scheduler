@@ -30,8 +30,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "prettier": "npx prettier --write .",
-    "lint": "npx eslint . --ext .ts,.tsx",
-    "go": "npm run prettier lint"
+    "lint": "npx eslint . --ext .ts,.tsx"
   },
   "eslintConfig": {
     "extends": [
