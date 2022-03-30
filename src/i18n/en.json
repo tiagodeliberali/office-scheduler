@@ -1,52 +1,52 @@
 {
-    "welcome": {
-        "overview": "An easy way to keep your schedule working for you!",
-        "title": "Welcome __name__!",
-        "description": "Use the navigation bar at the top of the page to get started.",
-        "signin": "Click here to sign in"
-    },
-    "slot": {
-        "empty": "Schedule"
-    },
-    "newEvent":{
-        "close": "Close",
-        "eventSubject": "Schedule invitation from __name__",
-        "schedule": "Schedule",
-        "saving": "Saving schedule..."
-    },
-    "selectContact": {
-        "search": "Find the contact",
-        "newContact": "New contact",
-        "firstName": "First name",
-        "lastName": "Last name",
-        "email": "Email",
-        "create": "Create contact",
-        "saving": "Saving contact..."
-    },
-    "contactCard": {
-        "notFilled": "<not filled>"
-    },
-    "scheduledSlot":{
-        "userNotFound": "Contact not found"
-    },
-    "documentOverview": {
-        "createInitialContent": "Create anamnesis",
-        "anamnesis": "<html><head><title>Anamnesis</title></head><body><h1>Hello!</h1><p>Fill some content here</p></body></html>",
-        "newsession": "<html><head><title>__date__ at __startTime__</title></head><body><h1>Session details</h1><p>Date: __date__<br />Start time: __startTime__ <br />End time: __endTime__</p></body></html>",
-        "confirmSession": "Confirm session happened",
-        "sessionConfirmed": "Session confirmed!",
-        "savingInitialContent": "Creating anamnesis...",
-        "savingSession": "Confirming session..."
-    },
-    "sessionsOverview": {
-        "noAnamnesis": "No anamnesis created",
-        "noSession": "No session concluded yet",
-        "firstSession": "First session concluded at __date__",
-        "sessions": "__qtd__ sessions. Last was __date__"
-    },
-    "mailOverview":{
-        "count": "+ __qtd__ more e-mails",
-        "noSubject": "<no subject>",
-        "noEmails": "No emails"
-    }
+  "welcome": {
+    "overview": "An easy way to keep your schedule working for you!",
+    "title": "Welcome __name__!",
+    "description": "Use the navigation bar at the top of the page to get started.",
+    "signin": "Click here to sign in"
+  },
+  "slot": {
+    "empty": "Schedule"
+  },
+  "newEvent": {
+    "close": "Close",
+    "eventSubject": "Schedule invitation from __name__",
+    "schedule": "Schedule",
+    "saving": "Saving schedule..."
+  },
+  "selectContact": {
+    "search": "Find the contact",
+    "newContact": "New contact",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "email": "Email",
+    "create": "Create contact",
+    "saving": "Saving contact..."
+  },
+  "contactCard": {
+    "notFilled": "<not filled>"
+  },
+  "scheduledSlot": {
+    "userNotFound": "Contact not found"
+  },
+  "documentOverview": {
+    "createInitialContent": "Create anamnesis",
+    "anamnesis": "<html><head><title>Anamnesis</title></head><body><h1>Hello!</h1><p>Fill some content here</p></body></html>",
+    "newsession": "<html><head><title>__date__ at __startTime__</title></head><body><h1>Session details</h1><p>Date: __date__<br />Start time: __startTime__ <br />End time: __endTime__</p></body></html>",
+    "confirmSession": "Confirm session happened",
+    "sessionConfirmed": "Session confirmed!",
+    "savingInitialContent": "Creating anamnesis...",
+    "savingSession": "Confirming session..."
+  },
+  "sessionsOverview": {
+    "noAnamnesis": "No anamnesis created",
+    "noSession": "No session concluded yet",
+    "firstSession": "First session concluded at __date__",
+    "sessions": "__qtd__ sessions. Last was __date__"
+  },
+  "mailOverview": {
+    "count": "+ __qtd__ more e-mails",
+    "noSubject": "<no subject>",
+    "noEmails": "No emails"
+  }
 }

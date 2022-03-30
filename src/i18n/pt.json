@@ -1,52 +1,52 @@
 {
-    "welcome": {
-        "overview": "Um jeito fácil de deixar a sua agenda trabalhar apra você!",
-        "title": "Bem vinda __name__!",
-        "description": "Use a barra de navegação para começar",
-        "signin": "Entrar"
-    },
-    "slot": {
-        "empty": "Agendar"
-    },
-    "newEvent":{
-        "close": "Fechar",
-        "eventSubject": "Confirmação da consulta com __name__",
-        "schedule": "Agendar",
-        "saving": "Salvando agendamento..."
-    },
-    "selectContact": {
-        "search": "Encontrar o paciente",
-        "newContact": "Novo paciente",
-        "firstName": "Primeiro nome",
-        "lastName": "Sobrenome",
-        "email": "Email",
-        "create": "Criar contato",
-        "saving": "Salvando contato..."
-    },
-    "contactCard": {
-        "notFilled": "<não preenchido>"
-    },
-    "scheduledSlot":{
-        "userNotFound": "Contato não encontrado"
-    },
-    "documentOverview": {
-        "createInitialContent": "Criar anamnese",
-        "savingInitialContent": "Criando anamnese...",
-        "anamnesis": "<html><head><title>Anamnese</title></head><body><h1>Olá!</h1><p>Adicione sua anamnese aqui</p></body></html>",
-        "newsession": "<html><head><title>__date__ às __startTime__</title></head><body><h1>Detalhes da sessão</h1><p>Data: __date__<br />Início: __startTime__ <br />Fim: __endTime__</p></body></html>",
-        "confirmSession": "Finalizar sessão",
-        "sessionConfirmed": "Sessão finalizada!",
-        "savingSession": "Finalizando sessão..."
-    },
-    "sessionsOverview": {
-        "noAnamnesis": "Anamnese não foi criada ainda",
-        "noSession": "Nenhuma sessão concluida",
-        "firstSession": "Uma sessão concluída em __date__",
-        "sessions": "__qtd__ sessões. A última foi __date__"
-    },
-    "mailOverview":{
-        "count": "+ __qtd__ outros emails",
-        "noSubject": "<sem assunto>",
-        "noEmails": "Nenhum email"
-    }
+  "welcome": {
+    "overview": "Um jeito fácil de deixar a sua agenda trabalhar apra você!",
+    "title": "Bem vinda __name__!",
+    "description": "Use a barra de navegação para começar",
+    "signin": "Entrar"
+  },
+  "slot": {
+    "empty": "Agendar"
+  },
+  "newEvent": {
+    "close": "Fechar",
+    "eventSubject": "Confirmação da consulta com __name__",
+    "schedule": "Agendar",
+    "saving": "Salvando agendamento..."
+  },
+  "selectContact": {
+    "search": "Encontrar o paciente",
+    "newContact": "Novo paciente",
+    "firstName": "Primeiro nome",
+    "lastName": "Sobrenome",
+    "email": "Email",
+    "create": "Criar contato",
+    "saving": "Salvando contato..."
+  },
+  "contactCard": {
+    "notFilled": "<não preenchido>"
+  },
+  "scheduledSlot": {
+    "userNotFound": "Contato não encontrado"
+  },
+  "documentOverview": {
+    "createInitialContent": "Criar anamnese",
+    "savingInitialContent": "Criando anamnese...",
+    "anamnesis": "<html><head><title>Anamnese</title></head><body><h1>Olá!</h1><p>Adicione sua anamnese aqui</p></body></html>",
+    "newsession": "<html><head><title>__date__ às __startTime__</title></head><body><h1>Detalhes da sessão</h1><p>Data: __date__<br />Início: __startTime__ <br />Fim: __endTime__</p></body></html>",
+    "confirmSession": "Finalizar sessão",
+    "sessionConfirmed": "Sessão finalizada!",
+    "savingSession": "Finalizando sessão..."
+  },
+  "sessionsOverview": {
+    "noAnamnesis": "Anamnese não foi criada ainda",
+    "noSession": "Nenhuma sessão concluida",
+    "firstSession": "Uma sessão concluída em __date__",
+    "sessions": "__qtd__ sessões. A última foi __date__"
+  },
+  "mailOverview": {
+    "count": "+ __qtd__ outros emails",
+    "noSubject": "<sem assunto>",
+    "noEmails": "Nenhum email"
+  }
 }

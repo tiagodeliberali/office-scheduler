@@ -51,6 +51,7 @@
   },
   "devDependencies": {
     "@types/microsoft-graph": "^2.13.0",
-    "@types/react-router-dom": "^5.3.3"
+    "@types/react-router-dom": "^5.3.3",
+    "prettier": "2.6.1"
   }
 }

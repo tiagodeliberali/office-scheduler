@@ -1,26 +1,26 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './common/App';
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import App from "./common/App";
 
 import {
   PublicClientApplication,
   EventType,
   EventMessage,
-  AuthenticationResult
-} from '@azure/msal-browser';
+  AuthenticationResult,
+} from "@azure/msal-browser";
 
-import config from './common/Config';
+import config from "./common/Config";
 
 const msalInstance = new PublicClientApplication({
   auth: {
     clientId: config.appId,
-    redirectUri: config.redirectUri
+    redirectUri: config.redirectUri,
   },
   cache: {
-    cacheLocation: 'sessionStorage',
-    storeAuthStateInCookie: true
-  }
+    cacheLocation: "sessionStorage",
+    storeAuthStateInCookie: true,
+  },
 });
 
 // Check if there are already accounts in the browser session
@@ -42,5 +42,5 @@ ReactDOM.render(
   <React.StrictMode>
     <App pca={msalInstance} />
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
