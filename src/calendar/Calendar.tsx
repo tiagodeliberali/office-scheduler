@@ -41,7 +41,7 @@ export default function Calendar() {
     const loadEvents = async () => {
       if (app.user) {
         try {
-          const ianaTimeZones = findIana(app.user?.timeZone!);
+          const ianaTimeZones = findIana(app.user.timeZone || "UTC");
           const timezone = ianaTimeZones[0].valueOf();
 
           const emptyWeek = buildEmptyWeek(

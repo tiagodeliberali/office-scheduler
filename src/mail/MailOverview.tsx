@@ -43,7 +43,9 @@ export default function MailOverview({ contact }: IMailOverviewProps) {
         messages.map((message) => {
           return {
             subject:
-              message.subject || T("mailOverview.noSubject")?.toString()!,
+              message.subject ||
+              T("mailOverview.noSubject")?.toString() ||
+              "<not defined>",
             hasAttachment:
               (message.attachments && message.attachments.length > 0) || false,
             date: parseISO(message.receivedDateTime!),
@@ -59,7 +61,7 @@ export default function MailOverview({ contact }: IMailOverviewProps) {
     <>
       {mails.length === 0 && (
         <ActionButton
-          text={T("mailOverview.noEmails")?.toString()!}
+          text={T("mailOverview.noEmails")?.toString() || "<not defined>"}
           iconProps={{ iconName: "accept" }}
         />
       )}

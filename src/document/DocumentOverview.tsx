@@ -54,7 +54,7 @@ export default function DocumentOverview({
     const updatedContact = await initializeContactSection(
       app.authProvider!,
       contact!,
-      T("documentOverview.anamnesis")?.toString()!
+      T("documentOverview.anamnesis")?.toString() || "<not defined>"
     );
     updateSessions(updatedContact);
     setSavingContent(false);
@@ -70,7 +70,7 @@ export default function DocumentOverview({
         date: format(slot.startDate, "dd/MM/yyyy"),
         startTime: format(slot.startDate, "HH:mm"),
         endTime: format(slot.endDate, "HH:mm"),
-      })?.toString()!
+      })?.toString() || "<not defined>"
     );
     updateSessions(updatedContact);
     setSavingContent(false);

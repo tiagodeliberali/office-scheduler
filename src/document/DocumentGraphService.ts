@@ -27,7 +27,7 @@ async function getOrCreateNotebooks(
 ): Promise<Notebook> {
   cachedGraphClient = ensureClient(authProvider, cachedGraphClient);
 
-  var response: PageCollection = await cachedGraphClient!
+  const response: PageCollection = await cachedGraphClient!
     .api("/me/onenote/notebooks")
     .filter(`displayName eq 'VirtualOffice'`)
     .select("id,displayName")

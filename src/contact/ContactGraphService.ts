@@ -14,7 +14,7 @@ export async function getContactList(
 ): Promise<Contact[]> {
   cachedGraphClient = ensureClient(authProvider, cachedGraphClient);
 
-  var response: PageCollection = await cachedGraphClient!
+  const response: PageCollection = await cachedGraphClient!
     .api("/me/contacts")
     .expand(
       `multiValueExtendedProperties($filter=id eq '${SESSIONS_FIELD_NAME}')`
@@ -36,7 +36,7 @@ export async function getContact(
 ): Promise<Contact | undefined> {
   cachedGraphClient = ensureClient(authProvider, cachedGraphClient);
 
-  var response: Contact | undefined = await cachedGraphClient!
+  const response: Contact | undefined = await cachedGraphClient!
     .api(`/me/contacts/${id}`)
     .expand(
       `multiValueExtendedProperties($filter=id eq '${SESSIONS_FIELD_NAME}')`

@@ -21,7 +21,7 @@ export async function getLastContactMails(
 
   cachedGraphClient = ensureClient(authProvider, cachedGraphClient);
 
-  var response: PageCollection = await cachedGraphClient!
+  const response: PageCollection = await cachedGraphClient!
     .api("/me/messages")
     .search(`"from:${contactEmail}"`)
     .select("subject,sentDateTime,uniqueBody,isRead,hasAttachments")

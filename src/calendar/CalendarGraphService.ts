@@ -21,7 +21,7 @@ export async function getUserCalendar(
 ): Promise<Event[]> {
   cachedGraphClient = ensureClient(authProvider, cachedGraphClient);
 
-  var response: PageCollection = await cachedGraphClient!
+  const response: PageCollection = await cachedGraphClient!
     .api("/me/calendarview")
     .header("Prefer", `outlook.timezone="${timeZone}"`)
     .expand(
@@ -40,13 +40,13 @@ export async function getUserCalendar(
     .get();
 
   if (response["@odata.nextLink"]) {
-    var events: Event[] = [];
+    const events: Event[] = [];
 
-    var options: GraphRequestOptions = {
+    const options: GraphRequestOptions = {
       headers: { Prefer: `outlook.timezone="${timeZone}"` },
     };
 
-    var pageIterator = new PageIterator(
+    const pageIterator = new PageIterator(
       cachedGraphClient!,
       response,
       (event) => {

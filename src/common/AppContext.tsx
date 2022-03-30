@@ -31,8 +31,8 @@ type AppContext = {
   error?: AppError;
   signIn?: MouseEventHandler<HTMLElement>;
   signOut?: MouseEventHandler<HTMLElement>;
-  displayError?: Function;
-  clearError?: Function;
+  displayError?: (message: string, debug?: string) => void;
+  clearError?: () => void;
   authProvider?: AuthCodeMSALBrowserAuthenticationProvider;
 };
 

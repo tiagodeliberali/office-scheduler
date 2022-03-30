@@ -26,8 +26,15 @@ export type IDay = {
 // IMPORTANT: INITIAL APPROACH WORKING DATES ON ORIGINAL TIMEZONE
 // NEED TO IMPROVE FOR MULTI TIMEZONE SCENARIOS
 
-const parseEventDate = (eventDate: NullableOption<DateTimeTimeZone>): Date => {
-  return toDate(eventDate?.dateTime!, { timeZone: eventDate?.timeZone! });
+const parseEventDate = (
+  eventDate: NullableOption<DateTimeTimeZone> | undefined
+): Date => {
+  if (eventDate?.dateTime) {
+    return toDate(eventDate?.dateTime, {
+      timeZone: eventDate?.timeZone || "UTC",
+    });
+  }
+  return new Date();
 };
 
 export const dateOnTimeZone = (date: Date, timezone: string): Date => {
@@ -81,16 +88,16 @@ const createEmptySlots = (referenceDate: Date): ISlot[] => {
 export const mergeEvents = (emptyWeek: IWeek, events: Event[]): IWeek => {
   events.forEach((event) => {
     emptyWeek.days
-      .filter((day) => isSameDay(day.date, parseEventDate(event.start!)))
+      .filter((day) => isSameDay(day.date, parseEventDate(event.start)))
       .forEach((filteredDay) => {
         const filteredSlots = filteredDay.slots.filter(
           (slot) =>
-            slot.startDate >= parseEventDate(event.end!) ||
-            slot.endDate <= parseEventDate(event.start!)
+            slot.startDate >= parseEventDate(event.end) ||
+            slot.endDate <= parseEventDate(event.start)
         );
         filteredSlots.push({
-          startDate: parseEventDate(event.start!),
-          endDate: parseEventDate(event.end!),
+          startDate: parseEventDate(event.start),
+          endDate: parseEventDate(event.end),
           event: event,
         });
 

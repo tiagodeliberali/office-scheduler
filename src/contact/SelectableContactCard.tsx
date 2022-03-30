@@ -52,7 +52,9 @@ export default function SelectableContactCard({
             <Stack.Item align="center" styles={stackHeaderItemStyles}>
               <DocumentCardTitle
                 title={
-                  person?.givenName || T("contactCard.notFilled")?.toString()!
+                  person?.givenName ||
+                  T("contactCard.notFilled")?.toString() ||
+                  "<not defined>"
                 }
               />
             </Stack.Item>
