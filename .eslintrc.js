@@ -4,8 +4,8 @@ module.exports = {
   root: true,
   parser: "@typescript-eslint/parser",
   rules: {
-    "no-non-null-assertion": off,
-    "no-explicit-any": off,
+    "@typescript-eslint/no-non-null-assertion": "off",
+    "@typescript-eslint/no-explicit-any": "off",
   },
   plugins: ["@typescript-eslint"],
   extends: [
