@@ -6,6 +6,6 @@ A simple UI to integrate Schedule, Contacts, OneNote and Mail from MS Graph API 
 
 ## To test
 
-> yarn install
+> npm install
 >
-> yarn start
+> npm run start
