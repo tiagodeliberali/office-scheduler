@@ -15,12 +15,15 @@ import { useMsal } from "@azure/msal-react";
 import config from "./Config";
 import { getUser } from "./GraphService";
 
+import { useT } from "talkr";
+
 export interface AppUser {
   displayName?: string;
   email?: string;
   avatar?: string;
   timeZone?: string;
   timeFormat?: string;
+  locale: string;
 }
 
 export interface AppError {
@@ -68,6 +71,7 @@ function useProvideAppContext() {
 
   const [user, setUser] = useState<AppUser | undefined>(undefined);
   const [error, setError] = useState<AppError | undefined>(undefined);
+  const { setLocale } = useT();
 
   const authProvider = useMemo(() => {
     return new AuthCodeMSALBrowserAuthenticationProvider(
@@ -84,6 +88,13 @@ function useProvideAppContext() {
     setError({ message, debug });
   }, []);
 
+  const setLocaleForUser = useCallback(
+    (locale: string) => {
+      setLocale(locale);
+    },
+    [setLocale]
+  );
+
   useEffect(() => {
     const checkUser = async () => {
       if (!user) {
@@ -97,6 +108,7 @@ function useProvideAppContext() {
               email: user.mail || user.userPrincipalName || "",
               timeFormat: user.mailboxSettings?.timeFormat || "h:mm a",
               timeZone: user.mailboxSettings?.timeZone || "UTC",
+              locale: user.mailboxSettings?.language?.locale || "en-us",
             });
           }
         } catch (err: any) {
@@ -106,6 +118,15 @@ function useProvideAppContext() {
     };
     checkUser();
   }, [authProvider, displayError, msal.instance, user]);
+
+  useEffect(() => {
+    const updateLocale = () => {
+      if (user && user.locale === "pt-br") {
+        setLocaleForUser("pt");
+      }
+    };
+    updateLocale();
+  }, [setLocaleForUser, user]);
 
   const clearError = useCallback(() => {
     setError(undefined);
@@ -124,6 +145,7 @@ function useProvideAppContext() {
       email: user.mail || user.userPrincipalName || "",
       timeFormat: user.mailboxSettings?.timeFormat || "",
       timeZone: user.mailboxSettings?.timeZone || "UTC",
+      locale: user.mailboxSettings?.language?.locale || "en-us",
     });
   }, [authProvider, msal.instance]);
 
