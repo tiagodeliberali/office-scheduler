@@ -9,7 +9,7 @@ import {
 import { Stack, IStackItemStyles } from "@fluentui/react/lib/Stack";
 
 import { useT } from "talkr";
-import DocumentOverview from "../document/DocumentOverview";
+import SessionFlowOverview from "../session/SessionFlowOverview";
 import ContactCard from "../contact/ContactCard";
 import { Contact } from "microsoft-graph";
 import { useEffect, useState } from "react";
@@ -85,7 +85,7 @@ export default function ScheduledSlot({ slot }: IScheduledSlotProps) {
         </Stack.Item>
 
         <Stack.Item styles={stackItemStyles}>
-          <DocumentOverview contact={contact} slot={slot} />
+          <SessionFlowOverview contact={contact} slot={slot} />
         </Stack.Item>
 
         <MailOverview contact={contact} />

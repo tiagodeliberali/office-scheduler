@@ -29,7 +29,7 @@
   "scheduledSlot": {
     "userNotFound": "Contact not found"
   },
-  "documentOverview": {
+  "sessionFlowOverview": {
     "createInitialContent": "Create anamnesis",
     "anamnesis": "<html><head><title>Anamnesis</title></head><body><h1>Hello!</h1><p>Fill some content here</p></body></html>",
     "newsession": "<html><head><title>__date__ at __startTime__</title></head><body><h1>Session details</h1><p>Date: __date__<br />Start time: __startTime__ <br />End time: __endTime__</p></body></html>",

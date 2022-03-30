@@ -7,12 +7,12 @@ import { Contact } from "microsoft-graph";
 import {
   initializeContactSection,
   addContactSession,
-} from "./DocumentGraphService";
+} from "./OneNoteGraphService";
 import { DefaultButton } from "@fluentui/react";
 import { ISlot } from "../slot/BaseSlot";
 import SessionsOverview from "./SessionsOverview";
 
-type IDocumentOverviewProps = {
+type ISessionFlowOverviewProps = {
   contact: Contact | undefined;
   slot: ISlot;
 };
@@ -23,10 +23,10 @@ const containsTodaySession = (sessions: string[], slot: ISlot): boolean => {
   );
 };
 
-export default function DocumentOverview({
+export default function SessionFlowOverview({
   contact,
   slot,
-}: IDocumentOverviewProps) {
+}: ISessionFlowOverviewProps) {
   const app = useAppContext();
   const { T } = useT();
 
@@ -54,7 +54,7 @@ export default function DocumentOverview({
     const updatedContact = await initializeContactSection(
       app.authProvider!,
       contact!,
-      T("documentOverview.anamnesis")?.toString() || "<not defined>"
+      T("sessionFlowOverview.anamnesis")?.toString() || "<not defined>"
     );
     updateSessions(updatedContact);
     setSavingContent(false);
@@ -66,7 +66,7 @@ export default function DocumentOverview({
       app.authProvider!,
       contact!,
       slot.startDate.toISOString(),
-      T("documentOverview.newsession", {
+      T("sessionFlowOverview.newsession", {
         date: format(slot.startDate, "dd/MM/yyyy"),
         startTime: format(slot.startDate, "HH:mm"),
         endTime: format(slot.endDate, "HH:mm"),
@@ -77,12 +77,12 @@ export default function DocumentOverview({
   };
 
   const initialContentButtonValue = savingContent
-    ? T("documentOverview.savingInitialContent")?.toString()
-    : T("documentOverview.createInitialContent")?.toString();
+    ? T("sessionFlowOverview.savingInitialContent")?.toString()
+    : T("sessionFlowOverview.createInitialContent")?.toString();
 
   const confirmSSessionButtonValue = savingContent
-    ? T("documentOverview.savingSession")?.toString()
-    : T("documentOverview.confirmSession")?.toString();
+    ? T("sessionFlowOverview.savingSession")?.toString()
+    : T("sessionFlowOverview.confirmSession")?.toString();
 
   return (
     <Stack>
@@ -105,7 +105,7 @@ export default function DocumentOverview({
       )}
       {sessions && containsTodaySession(sessions, slot) && (
         <DefaultButton
-          text={T("documentOverview.sessionConfirmed")?.toString()}
+          text={T("sessionFlowOverview.sessionConfirmed")?.toString()}
           disabled={true}
         />
       )}

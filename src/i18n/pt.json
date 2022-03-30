@@ -29,7 +29,7 @@
   "scheduledSlot": {
     "userNotFound": "Contato não encontrado"
   },
-  "documentOverview": {
+  "sessionFlowOverview": {
     "createInitialContent": "Criar anamnese",
     "savingInitialContent": "Criando anamnese...",
     "anamnesis": "<html><head><title>Anamnese</title></head><body><h1>Olá!</h1><p>Adicione sua anamnese aqui</p></body></html>",
