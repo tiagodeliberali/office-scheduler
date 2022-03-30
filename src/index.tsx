@@ -33,6 +33,13 @@ msalInstance.addEventCallback((event: EventMessage) => {
   if (event.eventType === EventType.LOGIN_SUCCESS && event.payload) {
     const authResult = event.payload as AuthenticationResult;
     msalInstance.setActiveAccount(authResult.account);
+  } else {
+    console.log(JSON.stringify(event.eventType));
+    try {
+      console.log(JSON.stringify(event.error));
+    } catch (err: any) {
+      console.log(`error parsing event.error: ${err}`);
+    }
   }
 });
 
