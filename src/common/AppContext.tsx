@@ -121,7 +121,7 @@ function useProvideAppContext() {
 
   useEffect(() => {
     const updateLocale = () => {
-      if (user && user.locale === "pt-br") {
+      if (user && user.locale.toLowerCase() === "pt-br") {
         setLocaleForUser("pt");
       }
     };
