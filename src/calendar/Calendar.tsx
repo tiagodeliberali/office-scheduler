@@ -63,7 +63,7 @@ export default function Calendar() {
     };
 
     loadEvents();
-  }, [app.user, app.authProvider, app.displayError, referenceDate]);
+  }, [app.authProvider, app.displayError, app.user, referenceDate]);
 
   const addToReferenceDate = (weeks: number) => {
     setReferenceDate(addWeeks(referenceDate, weeks));

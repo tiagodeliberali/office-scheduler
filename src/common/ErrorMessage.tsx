@@ -9,7 +9,7 @@ export default function ErrorMessage() {
       <MessageBar
         messageBarType={MessageBarType.error}
         isMultiline={false}
-        // onDismiss={p.resetChoice}
+        onDismiss={app.clearError}
         dismissButtonAriaLabel="Close"
       >
         <p className="mb-3">{app.error.message}</p>

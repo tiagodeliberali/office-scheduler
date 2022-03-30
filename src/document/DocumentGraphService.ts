@@ -13,8 +13,6 @@ const buildDisplayName = (contact: Contact): string =>
 async function getOrCreateNotebooksSingleton(
   authProvider: AuthCodeMSALBrowserAuthenticationProvider
 ): Promise<Notebook> {
-  // since we have many calls to this function,
-  // we can cache it
   if (!cachedPromiseNotebook) {
     cachedPromiseNotebook = getOrCreateNotebooks(authProvider);
   }
@@ -107,7 +105,6 @@ export async function addContactSession(
       contact?.multiValueExtendedProperties[0].value) ||
     [];
 
-  // avoid duplicated sessions
   if (sessions.some((x) => x === session)) {
     return contact;
   }

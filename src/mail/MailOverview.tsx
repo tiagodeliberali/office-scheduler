@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useAppContext } from "../common/AppContext";
 import { parseISO } from "date-fns/esm";
 import { useT } from "talkr";
@@ -30,6 +30,10 @@ export default function MailOverview({ contact }: IMailOverviewProps) {
   const { T } = useT();
 
   const [mails, setMails] = useState<IMessage[]>([]);
+  const emptySubject = useMemo(
+    () => T("mailOverview.noSubject")?.toString() || "<not defined>",
+    [T]
+  );
 
   useEffect(() => {
     const loadSessions = async () => {
@@ -42,10 +46,7 @@ export default function MailOverview({ contact }: IMailOverviewProps) {
       setMails(
         messages.map((message) => {
           return {
-            subject:
-              message.subject ||
-              T("mailOverview.noSubject")?.toString() ||
-              "<not defined>",
+            subject: message.subject || emptySubject,
             hasAttachment:
               (message.attachments && message.attachments.length > 0) || false,
             date: parseISO(message.receivedDateTime!),
@@ -55,7 +56,7 @@ export default function MailOverview({ contact }: IMailOverviewProps) {
     };
 
     loadSessions();
-  }, [contact, T, app.authProvider]);
+  }, [app.authProvider, contact, emptySubject]);
 
   return (
     <>

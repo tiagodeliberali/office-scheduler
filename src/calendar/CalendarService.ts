@@ -23,9 +23,6 @@ export type IDay = {
   slots: ISlot[];
 };
 
-// IMPORTANT: INITIAL APPROACH WORKING DATES ON ORIGINAL TIMEZONE
-// NEED TO IMPROVE FOR MULTI TIMEZONE SCENARIOS
-
 const parseEventDate = (
   eventDate: NullableOption<DateTimeTimeZone> | undefined
 ): Date => {

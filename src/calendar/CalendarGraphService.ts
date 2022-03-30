@@ -36,7 +36,7 @@ export async function getUserCalendar(
       "attendees,subject,organizer,start,end,bodyPreview,body,location,id,isCancelled,recurrence,singleValueExtendedProperties"
     )
     .orderby("start/dateTime")
-    .top(25)
+    .top(50)
     .get();
 
   if (response["@odata.nextLink"]) {

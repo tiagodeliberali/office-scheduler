@@ -4,6 +4,8 @@ import React, {
   useState,
   MouseEventHandler,
   useEffect,
+  useMemo,
+  useCallback,
 } from "react";
 
 import { AuthCodeMSALBrowserAuthenticationProvider } from "@microsoft/microsoft-graph-client/authProviders/authCodeMsalBrowser";
@@ -67,23 +69,27 @@ function useProvideAppContext() {
   const [user, setUser] = useState<AppUser | undefined>(undefined);
   const [error, setError] = useState<AppError | undefined>(undefined);
 
-  const authProvider = new AuthCodeMSALBrowserAuthenticationProvider(
-    msal.instance as PublicClientApplication,
-    {
-      account: msal.instance.getActiveAccount()!,
-      scopes: config.scopes,
-      interactionType: InteractionType.Popup,
-    }
-  );
+  const authProvider = useMemo(() => {
+    return new AuthCodeMSALBrowserAuthenticationProvider(
+      msal.instance as PublicClientApplication,
+      {
+        account: msal.instance.getActiveAccount()!,
+        scopes: config.scopes,
+        interactionType: InteractionType.Popup,
+      }
+    );
+  }, [msal.instance]);
+
+  const displayError = useCallback((message: string, debug?: string) => {
+    setError({ message, debug });
+  }, []);
 
   useEffect(() => {
     const checkUser = async () => {
       if (!user) {
         try {
-          // Check if user is already signed in
           const account = msal.instance.getActiveAccount();
           if (account) {
-            // Get the user from Microsoft Graph
             const user = await getUser(authProvider);
 
             setUser({
@@ -99,24 +105,18 @@ function useProvideAppContext() {
       }
     };
     checkUser();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user, msal.instance]);
+  }, [authProvider, displayError, msal.instance, user]);
 
-  const displayError = (message: string, debug?: string) => {
-    setError({ message, debug });
-  };
-
-  const clearError = () => {
+  const clearError = useCallback(() => {
     setError(undefined);
-  };
+  }, []);
 
-  const signIn = async () => {
+  const signIn = useCallback(async () => {
     await msal.instance.loginPopup({
       scopes: config.scopes,
       prompt: "select_account",
     });
 
-    // Get the user from Microsoft Graph
     const user = await getUser(authProvider);
 
     setUser({
@@ -125,12 +125,12 @@ function useProvideAppContext() {
       timeFormat: user.mailboxSettings?.timeFormat || "",
       timeZone: user.mailboxSettings?.timeZone || "UTC",
     });
-  };
+  }, [authProvider, msal.instance]);
 
-  const signOut = async () => {
+  const signOut = useCallback(async () => {
     await msal.instance.logoutPopup();
     setUser(undefined);
-  };
+  }, [msal.instance]);
 
   return {
     user,
