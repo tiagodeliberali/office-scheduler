@@ -9,3 +9,7 @@ A simple UI to integrate Schedule, Contacts, OneNote and Mail from MS Graph API 
 > npm install
 >
 > npm run start
+
+## To prepare to commit
+
+> npm run go
