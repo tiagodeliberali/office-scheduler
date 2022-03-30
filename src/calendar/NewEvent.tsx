@@ -13,7 +13,7 @@ import { useT } from "talkr";
 import SelectContact from "../contact/SelectContact";
 import { PrimaryButton } from "@fluentui/react/lib/Button";
 
-import { useEffect, useState, useReducer } from "react";
+import { useState } from "react";
 import { Contact, Event } from "microsoft-graph";
 import { createEvent } from "./CalendarGraphService";
 import { useAppContext } from "../common/AppContext";

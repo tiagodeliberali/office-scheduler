@@ -1,8 +1,4 @@
-import {
-  Client,
-  PageCollection,
-  PageIterator,
-} from "@microsoft/microsoft-graph-client";
+import { Client, PageCollection } from "@microsoft/microsoft-graph-client";
 import { AuthCodeMSALBrowserAuthenticationProvider } from "@microsoft/microsoft-graph-client/authProviders/authCodeMsalBrowser";
 import { Contact } from "microsoft-graph";
 import { ensureClient } from "../common/GraphService";

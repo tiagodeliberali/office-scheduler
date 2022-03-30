@@ -3,7 +3,6 @@ import { MsalProvider } from "@azure/msal-react";
 import { IPublicClientApplication } from "@azure/msal-browser";
 import ProvideAppContext from "./AppContext";
 import ErrorMessage from "./ErrorMessage";
-import NavBar from "./NavBar";
 import Calendar from "../calendar/Calendar";
 
 import { initializeIcons, Stack } from "@fluentui/react";

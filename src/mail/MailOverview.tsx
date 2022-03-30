@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useAppContext } from "../common/AppContext";
 import { parseISO } from "date-fns/esm";
 import { useT } from "talkr";
-import { Contact, Message } from "microsoft-graph";
+import { Contact } from "microsoft-graph";
 import { getLastContactMails } from "./MailGraphService";
 import { ActionButton, Stack } from "@fluentui/react";
 
@@ -29,7 +29,7 @@ export default function MailOverview({ contact }: IMailOverviewProps) {
   const app = useAppContext();
   const { T } = useT();
 
-  const [mails, setMails] = useState<IMessage[]>();
+  const [mails, setMails] = useState<IMessage[]>([]);
 
   useEffect(() => {
     const loadSessions = async () => {
@@ -57,21 +57,21 @@ export default function MailOverview({ contact }: IMailOverviewProps) {
 
   return (
     <>
-      {(mails || []).length == 0 && (
+      {mails.length === 0 && (
         <ActionButton
           text={T("mailOverview.noEmails")?.toString()!}
           iconProps={{ iconName: "accept" }}
         />
       )}
-      {(mails || []).length > 0 && (
+      {mails.length > 0 && (
         <Stack>
-          {mails?.slice(0, 3).map((x) => (
+          {mails.slice(0, 3).map((x) => (
             <ActionButton
               text={displayText(x.subject)}
               iconProps={{ iconName: "mail" }}
             />
           ))}
-          {(mails || [])?.length > 3 && (
+          {mails.length > 3 && (
             <ActionButton
               text={T("mailOverview.count", {
                 qtd: (mails || [])?.length - 3,

@@ -1,8 +1,4 @@
-import {
-  Client,
-  PageCollection,
-  PageIterator,
-} from "@microsoft/microsoft-graph-client";
+import { Client, PageCollection } from "@microsoft/microsoft-graph-client";
 import { AuthCodeMSALBrowserAuthenticationProvider } from "@microsoft/microsoft-graph-client/authProviders/authCodeMsalBrowser";
 import { Notebook, Contact, OnenoteSection } from "microsoft-graph";
 import { ensureClient } from "../common/GraphService";
@@ -38,7 +34,7 @@ async function getOrCreateNotebooks(
     .top(1)
     .get();
 
-  if (response.value.length == 0) {
+  if (response.value.length === 0) {
     return createNotebook(authProvider, {
       displayName: "VirtualOffice",
       isShared: false,
@@ -112,7 +108,7 @@ export async function addContactSession(
     [];
 
   // avoid duplicated sessions
-  if (sessions.some((x) => x == session)) {
+  if (sessions.some((x) => (x = session))) {
     return contact;
   }
 

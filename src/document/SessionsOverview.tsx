@@ -11,11 +11,11 @@ export default function SessionsOverview({ sessions }: ISessionsOverviewProps) {
   const { T } = useT();
 
   let message: string = "";
-  if (sessions.length == 0) {
+  if (sessions.length === 0) {
     message = T("sessionsOverview.noAnamnesis")?.toString()!;
-  } else if (sessions.length == 1) {
+  } else if (sessions.length === 1) {
     message = T("sessionsOverview.noSession")?.toString()!;
-  } else if (sessions.length == 2) {
+  } else if (sessions.length === 2) {
     message = T("sessionsOverview.firstSession", {
       date: format(parseISO(sessions[1]), "dd/MM/yyyy"),
     })?.toString()!;

@@ -15,8 +15,6 @@ type IEmptySlotProps = {
 };
 
 export default function EmptySlot({ slot, onSchedule }: IEmptySlotProps) {
-  const [show, setShow] = useState<boolean>(false);
-
   const logoProps: IDocumentCardLogoProps = {
     logoIcon: "calendar",
     styles: {
@@ -28,19 +26,9 @@ export default function EmptySlot({ slot, onSchedule }: IEmptySlotProps) {
     },
   };
 
-  const onMouseEnter = () => {
-    setShow(true);
-  };
-
-  const onMouseLeave = () => {
-    setShow(false);
-  };
-
   return (
     <DocumentCard
       styles={{ root: { width: 320 } }}
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
       onClick={() => onSchedule(slot)}
     >
       <Stack>

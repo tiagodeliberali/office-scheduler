@@ -1,24 +1,10 @@
-import {
-  Stack,
-  IStackStyles,
-  IStackTokens,
-  IStackItemStyles,
-} from "@fluentui/react/lib/Stack";
+import { Stack, IStackItemStyles } from "@fluentui/react/lib/Stack";
 import { useEffect, useState, useReducer } from "react";
 import { useT } from "talkr";
-import {
-  Attendee,
-  Contact,
-  NullableOption,
-  ResponseStatus,
-} from "microsoft-graph";
+import { Contact } from "microsoft-graph";
 import {
   ActionButton,
-  CommandButton,
   IDocumentCardStyles,
-  Persona,
-  PersonaPresence,
-  PersonaSize,
   PrimaryButton,
 } from "@fluentui/react";
 import { TextField } from "@fluentui/react/lib/TextField";

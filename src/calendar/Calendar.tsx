@@ -31,7 +31,6 @@ export default function Calendar() {
   const app = useAppContext();
   const { T } = useT();
 
-  const [events, setEvents] = useState<Event[]>();
   const [week, setWeek] = useState<IWeek>();
   const [referenceDate, setReferenceDate] = useState<Date>(new Date());
   const [modalState, dispatchModal] = useReducer(
@@ -58,7 +57,6 @@ export default function Calendar() {
           const mergedWeek = mergeEvents(emptyWeek, events);
 
           setWeek(mergedWeek);
-          setEvents(events);
         } catch (err: any) {
           app.displayError!(err.message);
         }
