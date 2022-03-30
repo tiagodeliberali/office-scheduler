@@ -108,7 +108,7 @@ export async function addContactSession(
     [];
 
   // avoid duplicated sessions
-  if (sessions.some((x) => (x = session))) {
+  if (sessions.some((x) => x === session)) {
     return contact;
   }
 

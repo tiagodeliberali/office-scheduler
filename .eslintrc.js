@@ -1,6 +1,12 @@
+const { off } = require("process");
+
 module.exports = {
   root: true,
   parser: "@typescript-eslint/parser",
+  rules: {
+    "no-non-null-assertion": off,
+    "no-explicit-any": off,
+  },
   plugins: ["@typescript-eslint"],
   extends: [
     "eslint:recommended",
