@@ -67,6 +67,15 @@ function useProvideAppContext() {
   const [user, setUser] = useState<AppUser | undefined>(undefined);
   const [error, setError] = useState<AppError | undefined>(undefined);
 
+  const authProvider = new AuthCodeMSALBrowserAuthenticationProvider(
+    msal.instance as PublicClientApplication,
+    {
+      account: msal.instance.getActiveAccount()!,
+      scopes: config.scopes,
+      interactionType: InteractionType.Popup,
+    }
+  );
+
   useEffect(() => {
     const checkUser = async () => {
       if (!user) {
@@ -90,7 +99,7 @@ function useProvideAppContext() {
       }
     };
     checkUser();
-  }, [user]);
+  }, [user, authProvider, msal.instance]);
 
   const displayError = (message: string, debug?: string) => {
     setError({ message, debug });
@@ -99,15 +108,6 @@ function useProvideAppContext() {
   const clearError = () => {
     setError(undefined);
   };
-
-  const authProvider = new AuthCodeMSALBrowserAuthenticationProvider(
-    msal.instance as PublicClientApplication,
-    {
-      account: msal.instance.getActiveAccount()!,
-      scopes: config.scopes,
-      interactionType: InteractionType.Popup,
-    }
-  );
 
   const signIn = async () => {
     await msal.instance.loginPopup({

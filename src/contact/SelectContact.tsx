@@ -1,5 +1,5 @@
 import { Stack, IStackItemStyles } from "@fluentui/react/lib/Stack";
-import { useEffect, useState, useReducer } from "react";
+import { useState } from "react";
 import { useT } from "talkr";
 import { Contact } from "microsoft-graph";
 import {

@@ -53,7 +53,7 @@ export default function MailOverview({ contact }: IMailOverviewProps) {
     };
 
     loadSessions();
-  }, [contact]);
+  }, [contact, T, app.authProvider]);
 
   return (
     <>

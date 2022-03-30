@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { ISlot } from "./BaseSlot";
 import { Stack } from "@fluentui/react/lib/Stack";
 import { format } from "date-fns";

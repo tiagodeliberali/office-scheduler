@@ -42,7 +42,7 @@ export default function ScheduledSlot({ slot }: IScheduledSlotProps) {
     };
 
     loadEvents();
-  }, []);
+  }, [app.authProvider, slot.event?.singleValueExtendedProperties]);
 
   const logoProps: IDocumentCardLogoProps = {
     logoIcon: "calendar",

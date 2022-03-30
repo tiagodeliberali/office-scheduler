@@ -1,6 +1,5 @@
 import { useEffect, useState, useReducer } from "react";
 import { findIana } from "windows-iana";
-import { Event } from "microsoft-graph";
 import {
   AuthenticatedTemplate,
   UnauthenticatedTemplate,
@@ -64,7 +63,7 @@ export default function Calendar() {
     };
 
     loadEvents();
-  }, [app.user, referenceDate]);
+  }, [app.user, app.authProvider, app.displayError, referenceDate]);
 
   const addToReferenceDate = (weeks: number) => {
     setReferenceDate(addWeeks(referenceDate, weeks));
