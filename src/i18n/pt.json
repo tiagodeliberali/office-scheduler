@@ -12,7 +12,10 @@
     "close": "Fechar",
     "eventSubject": "Confirmação da consulta com __name__",
     "schedule": "Agendar",
-    "saving": "Salvando agendamento..."
+    "saving": "Salvando agendamento...",
+    "sendInvite": "Enviar convite",
+    "sendInviteOn": "Será enviado um convite",
+    "sendInviteOff": "A pessoa não receberá o convite"
   },
   "selectContact": {
     "search": "Encontrar o paciente",

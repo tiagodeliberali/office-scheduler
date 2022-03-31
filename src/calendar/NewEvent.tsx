@@ -5,6 +5,7 @@ import {
   Modal,
   Stack,
   Icon,
+  Toggle,
 } from "@fluentui/react";
 import { IconButton, IButtonStyles } from "@fluentui/react/lib/Button";
 import { ISlot } from "../slot/BaseSlot";
@@ -88,11 +89,15 @@ export default function NewEvent({ isOpen, hideModal, slot }: INewEventProps) {
   const { T, setLocale } = useT();
   app.user && setLocale(app.user.locale);
 
+  const defaultSendInviteState = true;
+
   const [selectedContact, setSelectedContact] = useState<Contact | undefined>();
   const [savingContent, setSavingContent] = useState<boolean>(false);
+  const [sendInvite, setSendInvite] = useState<boolean>(defaultSendInviteState);
 
   const closeModal = () => {
     hideModal();
+    setSendInvite(defaultSendInviteState);
     setSelectedContact(undefined);
   };
 
@@ -117,7 +122,7 @@ export default function NewEvent({ isOpen, hideModal, slot }: INewEventProps) {
       })?.toString(),
     };
 
-    if (email) {
+    if (email && sendInvite) {
       payload.attendees = [
         {
           type: "required",
@@ -172,13 +177,23 @@ export default function NewEvent({ isOpen, hideModal, slot }: INewEventProps) {
           />
         </div>
 
-        <Stack.Item align="center" styles={{ root: { margin: 16 } }}>
+        <Stack.Item align="start" styles={{ root: { margin: 16 } }}>
           {selectedContact && (
-            <PrimaryButton
-              text={buttonValue}
-              disabled={savingContent}
-              onClick={() => createSchedule(selectedContact)}
-            />
+            <>
+              <Toggle
+                label={T("newEvent.sendInvite")?.toString()}
+                style={{ marginBottom: 16 }}
+                checked={sendInvite}
+                onText={T("newEvent.sendInviteOn")?.toString()}
+                offText={T("newEvent.sendInviteOff")?.toString()}
+                onChange={(_, value) => setSendInvite(value || false)}
+              />
+              <PrimaryButton
+                text={buttonValue}
+                disabled={savingContent}
+                onClick={() => createSchedule(selectedContact)}
+              />
+            </>
           )}
         </Stack.Item>
       </Stack>

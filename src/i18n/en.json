@@ -12,7 +12,10 @@
     "close": "Close",
     "eventSubject": "Schedule invitation from __name__",
     "schedule": "Schedule",
-    "saving": "Saving schedule..."
+    "saving": "Saving schedule...",
+    "sendInvite": "Send invite",
+    "sendInviteOn": "Contact will receive an invite",
+    "sendInviteOff": "Contact won't receive an invite"
   },
   "selectContact": {
     "search": "Find the contact",
