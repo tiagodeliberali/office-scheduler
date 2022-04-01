@@ -11,6 +11,7 @@ export async function getLastContactMails(
   qtd: number
 ): Promise<Message[]> {
   const contactEmail =
+    contact &&
     contact.emailAddresses &&
     contact.emailAddresses.length > 0 &&
     contact.emailAddresses[0].address;
