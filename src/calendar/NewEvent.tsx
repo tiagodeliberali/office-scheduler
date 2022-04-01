@@ -14,7 +14,7 @@ import { useT } from "talkr";
 import SelectContact from "../contact/SelectContact";
 import { PrimaryButton } from "@fluentui/react/lib/Button";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Contact, Event } from "microsoft-graph";
 import { createEvent } from "./CalendarGraphService";
 import { useAppContext } from "../common/AppContext";
@@ -94,6 +94,15 @@ export default function NewEvent({ isOpen, hideModal, slot }: INewEventProps) {
   const [selectedContact, setSelectedContact] = useState<Contact | undefined>();
   const [savingContent, setSavingContent] = useState<boolean>(false);
   const [sendInvite, setSendInvite] = useState<boolean>(defaultSendInviteState);
+  const [hasEmail, setHasEmail] = useState<boolean>(false);
+
+  useEffect(() => {
+    const email =
+      selectedContact?.emailAddresses &&
+      selectedContact?.emailAddresses.length > 0;
+
+    setHasEmail(!!email);
+  }, [selectedContact]);
 
   const closeModal = () => {
     hideModal();
@@ -108,6 +117,7 @@ export default function NewEvent({ isOpen, hideModal, slot }: INewEventProps) {
       contact?.emailAddresses &&
       contact?.emailAddresses.length > 0 &&
       contact?.emailAddresses[0];
+
     const payload: Event = {
       start: {
         dateTime: slot?.startDate.toISOString(),
@@ -180,14 +190,16 @@ export default function NewEvent({ isOpen, hideModal, slot }: INewEventProps) {
         <Stack.Item align="start" styles={{ root: { margin: 16 } }}>
           {selectedContact && (
             <>
-              <Toggle
-                label={T("newEvent.sendInvite")?.toString()}
-                style={{ marginBottom: 16 }}
-                checked={sendInvite}
-                onText={T("newEvent.sendInviteOn")?.toString()}
-                offText={T("newEvent.sendInviteOff")?.toString()}
-                onChange={(_, value) => setSendInvite(value || false)}
-              />
+              {hasEmail && (
+                <Toggle
+                  label={T("newEvent.sendInvite")?.toString()}
+                  style={{ marginBottom: 16 }}
+                  checked={sendInvite}
+                  onText={T("newEvent.sendInviteOn")?.toString()}
+                  offText={T("newEvent.sendInviteOff")?.toString()}
+                  onChange={(_, value) => setSendInvite(value || false)}
+                />
+              )}
               <PrimaryButton
                 text={buttonValue}
                 disabled={savingContent}
