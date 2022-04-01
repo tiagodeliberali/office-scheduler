@@ -1,6 +1,6 @@
 const prodConfig = {
   appId: "373a3859-a70c-4cd7-ab2d-972debc12e6a",
-  redirectUri: "https://polite-sand-0725aee10.1.azurestaticapps.net",
+  redirectUri: "https://polite-sand-0725aee10.1.azurestaticapps.net/blank.html",
   scopes: [
     "user.read",
     "mailboxsettings.read",
@@ -13,7 +13,7 @@ const prodConfig = {
 
 const devConfig = {
   appId: "373a3859-a70c-4cd7-ab2d-972debc12e6a",
-  redirectUri: "http://localhost:3000",
+  redirectUri: "http://localhost:3000/blank.html",
   scopes: [
     "user.read",
     "mailboxsettings.read",
